@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { AppRegistry, View, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native'
+
+const extractKey = ({id}) => id
 
 export default class MemberListScreen extends Component {
 
@@ -19,6 +21,14 @@ export default class MemberListScreen extends Component {
     }
   }
 
+  renderItem = ({item}) => {
+    return (
+      <Text>
+        {item.firstName} {item.lastName}
+      </Text>
+    )
+  }
+
   render() {
     const {loading, members} = this.state
 
@@ -29,14 +39,14 @@ export default class MemberListScreen extends Component {
         </View>
       )
     }
-
-    console.log(members)
+    
     return (
-      <View style={styles.container}>
-        <Text>
-          We have {members.length} members.
-        </Text>
-      </View>
+      <FlatList
+       style={styles.list}
+       data={members}
+       renderItem={this.renderItem}
+       keyExtractor={extractKey}
+       />
     )
   }
 }
@@ -47,6 +57,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  list: {
+    flex: 1,
+  }
 })
 
 AppRegistry.registerComponent('MemberListScreen', () => MemberListScreen)
