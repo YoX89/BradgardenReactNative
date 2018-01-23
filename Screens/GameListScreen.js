@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView, Button } from 'react-native'
-import { containerStyles } from './Styles/ContainerStyles'
-import { rowStyles } from './Styles/RowStyles'
-import { buttonStyles } from './Styles/ButtonStyles'
+import { ContainerStyles } from './Styles/ContainerStyles'
+import { RowStyles } from './Styles/RowStyles'
+import { ButtonStyles } from './Styles/ButtonStyles'
 
 const extractKey = ({id}) => id
 const baseURL = 'https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api'
@@ -27,7 +27,7 @@ export default class GameListScreen extends PureComponent {
 
   renderGame = ({item}) => {
     return (
-      <Text style={rowStyles.row}>
+      <Text style={RowStyles.row}>
         {item.name}
       </Text>
     )
@@ -38,7 +38,7 @@ export default class GameListScreen extends PureComponent {
 
     if (loading) {
       return (
-        <View style={containerStyles.center}>
+        <View style={ContainerStyles.center}>
           <ActivityIndicator animating={true} />
         </View>
       )
@@ -46,7 +46,7 @@ export default class GameListScreen extends PureComponent {
 
     if (error) {
       return (
-        <View style={containerStyles.center}>
+        <View style={ContainerStyles.center}>
           <Text>
             Could not load games.
           </Text>
@@ -55,15 +55,15 @@ export default class GameListScreen extends PureComponent {
     }
 
     return (
-      <View style={containerStyles.list}>
+      <View style={ContainerStyles.list}>
         <View style={{height:40, margin:10}} >
           <Button
-            style={buttonStyles.standard}
+            style={ButtonStyles.standard}
             title='Add new game'
             onPress={() => this.showAddGameScreen()}/>
         </View>
         <FlatList
-           style={containerStyles.list}
+           style={ContainerStyles.list}
            data={games}
            renderItem={this.renderGame}
            keyExtractor={extractKey}

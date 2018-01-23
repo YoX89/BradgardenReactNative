@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native'
-import { containerStyles } from './Styles/ContainerStyles'
-import { rowStyles } from './Styles/RowStyles'
+import { ContainerStyles } from './Styles/ContainerStyles'
+import { RowStyles } from './Styles/RowStyles'
 
 const extractKey = ({id}) => id
 const baseURL = 'https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api'
@@ -26,7 +26,7 @@ export default class MemberListScreen extends PureComponent {
 
   renderMember = ({item}) => {
     return (
-      <Text style={rowStyles.row}>
+      <Text style={RowStyles.row}>
         {item.firstName} {item.lastName}
       </Text>
     )
@@ -37,7 +37,7 @@ export default class MemberListScreen extends PureComponent {
 
     if (loading) {
       return (
-        <View style={containerStyles.center}>
+        <View style={ContainerStyles.center}>
           <ActivityIndicator animating={true} />
         </View>
       )
@@ -45,7 +45,7 @@ export default class MemberListScreen extends PureComponent {
 
     if (error) {
       return (
-        <View style={containerStyles.center}>
+        <View style={ContainerStyles.center}>
           <Text>
             Could not load members.
           </Text>
@@ -55,7 +55,7 @@ export default class MemberListScreen extends PureComponent {
 
     return (
       <FlatList
-       style={containerStyles.list}
+       style={ContainerStyles.list}
        data={members}
        renderItem={this.renderMember}
        keyExtractor={extractKey}

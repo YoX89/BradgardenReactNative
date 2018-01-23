@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const rowStyles = StyleSheet.create({
+export const RowStyles = StyleSheet.create({
   row: {
     padding: 15,
     marginBottom: 5,
