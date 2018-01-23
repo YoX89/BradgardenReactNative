@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
-import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native'
+import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView, Button } from 'react-native'
 import { containerStyles } from './Styles/ContainerStyles'
 import { rowStyles } from './Styles/RowStyles'
+import { buttonStyles } from './Styles/ButtonStyles'
 
 const extractKey = ({id}) => id
 const baseURL = 'https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api'
@@ -54,13 +55,25 @@ export default class GameListScreen extends PureComponent {
     }
 
     return (
-      <FlatList
-       style={containerStyles.list}
-       data={games}
-       renderItem={this.renderGame}
-       keyExtractor={extractKey}
-       />
+      <View style={containerStyles.list}>
+        <View style={{height:40, margin:10}} >
+          <Button
+            style={buttonStyles.standard}
+            title='Add new game'
+            onPress={() => this.showAddGameScreen()}/>
+        </View>
+        <FlatList
+           style={containerStyles.list}
+           data={games}
+           renderItem={this.renderGame}
+           keyExtractor={extractKey}
+         />
+       </View>
     )
+  }
+
+  showAddGameScreen() {
+    console.log("Open add game screen")
   }
 }
 
