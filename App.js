@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, Platform, StatusBar, SafeAreaView } from 'react-native';
 import { Tabs } from './Router/Router'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.statusBar}>
           <StatusBar
             backgroundColor={'transparent'}
@@ -13,7 +13,7 @@ export default class App extends React.Component {
           />
         </View>
         <Tabs />
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statusBar: {
-    height: (Platform.OS === 'ios' ? 20 :  StatusBar.currentHeight),
+    height: (Platform.OS === 'ios' ? 0 :  StatusBar.currentHeight),
   },
 });

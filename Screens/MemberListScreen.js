@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native'
 
 const extractKey = ({id}) => id
+const baseURL = 'https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api'
 
-export default class MemberListScreen extends Component {
+export default class MemberListScreen extends PureComponent {
 
   state = {
     loading: true,
@@ -13,7 +14,7 @@ export default class MemberListScreen extends Component {
 
   componentWillMount = async () => {
     try {
-      const response = await fetch('https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api/members')
+      const response = await fetch(baseURL + '/members')
       const members = await response.json()
       this.setState({loading: false, members})
     } catch (e) {
@@ -21,7 +22,7 @@ export default class MemberListScreen extends Component {
     }
   }
 
-  renderItem = ({item}) => {
+  renderMember = ({item}) => {
     return (
       <Text>
         {item.firstName} {item.lastName}
@@ -30,7 +31,7 @@ export default class MemberListScreen extends Component {
   }
 
   render() {
-    const {loading, members} = this.state
+    const {loading, members, error} = this.state
 
     if (loading) {
       return (
@@ -39,12 +40,22 @@ export default class MemberListScreen extends Component {
         </View>
       )
     }
-    
+
+    if (error) {
+      return (
+        <View style={styles.container}>
+          <Text>
+            Could not load members.
+          </Text>
+        </View>
+      )
+    }
+
     return (
       <FlatList
        style={styles.list}
        data={members}
-       renderItem={this.renderItem}
+       renderItem={this.renderMember}
        keyExtractor={extractKey}
        />
     )
