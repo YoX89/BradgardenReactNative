@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import { AppRegistry, View, FlatList, Text, ActivityIndicator, StyleSheet, SafeAreaView } from 'react-native'
+import { containerStyles } from './Styles/ContainerStyles'
+import { rowStyles } from './Styles/RowStyles'
 
 const extractKey = ({id}) => id
 const baseURL = 'https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api'
@@ -24,7 +26,7 @@ export default class MemberListScreen extends PureComponent {
 
   renderMember = ({item}) => {
     return (
-      <Text>
+      <Text style={rowStyles.row}>
         {item.firstName} {item.lastName}
       </Text>
     )
@@ -35,7 +37,7 @@ export default class MemberListScreen extends PureComponent {
 
     if (loading) {
       return (
-        <View style={styles.container}>
+        <View style={containerStyles.center}>
           <ActivityIndicator animating={true} />
         </View>
       )
@@ -43,7 +45,7 @@ export default class MemberListScreen extends PureComponent {
 
     if (error) {
       return (
-        <View style={styles.container}>
+        <View style={containerStyles.center}>
           <Text>
             Could not load members.
           </Text>
@@ -53,7 +55,7 @@ export default class MemberListScreen extends PureComponent {
 
     return (
       <FlatList
-       style={styles.list}
+       style={containerStyles.list}
        data={members}
        renderItem={this.renderMember}
        keyExtractor={extractKey}
@@ -61,16 +63,5 @@ export default class MemberListScreen extends PureComponent {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  list: {
-    flex: 1,
-  }
-})
 
 AppRegistry.registerComponent('MemberListScreen', () => MemberListScreen)
