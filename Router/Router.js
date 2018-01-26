@@ -1,13 +1,13 @@
-import React from 'react';
-import { TabNavigator } from 'react-navigation';
-import MemberListScreen from '../Screens/MemberListScreen';
-import GameListScreen from '../Screens/GameListScreen';
+import React from "react";
+import { TabNavigator } from "react-navigation";
+import MemberListScreen from "../Screens/MemberListScreen";
+import GameListScreen from "../Screens/GameListScreen";
 
 export const Tabs = TabNavigator({
   Games: {
-    screen: GameListScreen,
+    screen: GameListScreen
   },
   Members: {
-    screen: MemberListScreen,
-  },
+    screen: MemberListScreen
+  }
 });
