@@ -6,10 +6,12 @@ import {
   Text,
   ActivityIndicator,
   StyleSheet,
-  SafeAreaView
+  SafeAreaView,
+  Image
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { RowStyles } from "./Styles/RowStyles";
+import { ButtonStyles } from "./Styles/ButtonStyles";
 
 const extractKey = ({ id }) => id;
 const baseURL =
@@ -24,6 +26,16 @@ export default class MemberListScreen extends PureComponent {
       members: []
     };
   }
+
+  static navigationOptions = {
+    tabBarLabel: "Members",
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require("../Images/user.png")}
+        style={[ButtonStyles.tabIcon, { tintColor: tintColor }]}
+      />
+    )
+  };
 
   componentWillMount = async () => {
     try {

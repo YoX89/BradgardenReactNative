@@ -7,11 +7,13 @@ import {
   ActivityIndicator,
   StyleSheet,
   SafeAreaView,
-  Button
+  Button,
+  Image
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
+import { Colors } from "../Styles/Colors";
 
 const extractKey = ({ id }) => id;
 const baseURL =
@@ -26,6 +28,16 @@ export default class GameListScreen extends PureComponent {
       games: []
     };
   }
+
+  static navigationOptions = {
+    tabBarLabel: "Games",
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require("../Images/user.png")}
+        style={[ButtonStyles.tabIcon, { tintColor: tintColor }]}
+      />
+    )
+  };
 
   componentWillMount = async () => {
     try {
@@ -65,6 +77,7 @@ export default class GameListScreen extends PureComponent {
         <View style={{ height: 40, margin: 10 }}>
           <Button
             style={ButtonStyles.standard}
+            color={Colors.button}
             title="Add new game"
             onPress={() => this.showAddGameScreen()}
           />

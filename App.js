@@ -7,6 +7,7 @@ import {
   SafeAreaView
 } from "react-native";
 import { Tabs } from "./Router/Router";
+import { Colors } from "./Styles/Colors";
 
 export default class App extends React.Component {
   render() {
@@ -23,7 +24,8 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.background
   },
   statusBar: {
     height: Platform.OS === "ios" ? 0 : StatusBar.currentHeight

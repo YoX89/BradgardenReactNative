@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
+import { Colors } from "../../Styles/Colors";
 
 export const RowStyles = StyleSheet.create({
   row: {
     padding: 15,
     marginBottom: 5,
-    backgroundColor: "skyblue"
+    color: Colors.primary,
+    backgroundColor: Colors.secondary
   }
 });
