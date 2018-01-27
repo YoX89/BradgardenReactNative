@@ -56,6 +56,7 @@ export default class AddGameScreen extends Component {
           />
           <Button title="Add game" onPress={() => this.addGame()} />
           <Button title="Close" onPress={() => this.toggleVisible()} />
+          {this.state.loading && <ActivityIndicator size="large" />}
         </View>
       </Modal>
     );
@@ -66,6 +67,7 @@ export default class AddGameScreen extends Component {
     const name = this.nameInput.text();
     const numberOfPlayers = this.numberOfPlayersInput.text();
 
+    this.setState({ loading: true });
     try {
       const success = await Api.addGame(
         name,
@@ -73,10 +75,12 @@ export default class AddGameScreen extends Component {
         hasTraitor,
         isCoop
       );
+      this.setState({ loading: false });
       if (success) {
         this.toggleVisible();
       }
     } catch (e) {
+      this.setState({ loading: false });
       console.log("Error while posting game: " + { e });
     }
   };
