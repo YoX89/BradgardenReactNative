@@ -15,7 +15,6 @@ export const ContainerStyles = StyleSheet.create({
     borderRadius: 4,
     borderColor: Colors.primary,
     borderWidth: 1,
-    padding: 10,
     backgroundColor: Colors.background
   }
 });

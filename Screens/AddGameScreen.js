@@ -4,15 +4,13 @@ import {
   View,
   Text,
   ActivityIndicator,
-  StyleSheet,
-  Button
+  StyleSheet
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
-import { RowStyles } from "./Styles/RowStyles";
-import { ButtonStyles } from "./Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
 import Modal from "react-native-modal";
 import Input from "../Components/Input";
+import Button from "../Components/Button";
 
 const baseURL =
   "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
@@ -36,14 +34,8 @@ export default class AddGameScreen extends Component {
     return (
       <Modal isVisible={isVisible}>
         <View style={ContainerStyles.modal}>
-          <Text>Hello!</Text>
           <Input placeholder="Name of the game" />
-          <Button
-            style={ButtonStyles.standard}
-            color={Colors.button}
-            title="Close"
-            onPress={() => this.toggleVisible()}
-          />
+          <Button title="Close" onPress={() => this.toggleVisible()} />
         </View>
       </Modal>
     );

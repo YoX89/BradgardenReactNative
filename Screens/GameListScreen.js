@@ -7,13 +7,13 @@ import {
   ActivityIndicator,
   StyleSheet,
   SafeAreaView,
-  Button,
   Image
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
+import Button from "../Components/Button";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
 
@@ -76,14 +76,7 @@ export default class GameListScreen extends PureComponent {
 
     return (
       <View style={ContainerStyles.list}>
-        <View style={{ height: 40, margin: 10 }}>
-          <Button
-            style={ButtonStyles.standard}
-            color={Colors.button}
-            title="Add new game"
-            onPress={() => this.showAddGameScreen()}
-          />
-        </View>
+        <Button title="Add new game" onPress={() => this.showAddGameScreen()} />
         <FlatList
           style={ContainerStyles.list}
           data={games}
