@@ -6,17 +6,22 @@ import { ComponentStyles } from "./Styles/ComponentStyles";
 export default class Input extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: "", placeholder: props.placeholder };
+    this.state = {
+      text: "",
+      placeholder: props.placeholder,
+      numeric: props.numeric
+    };
   }
 
   render() {
-    const { placeholder } = this.state;
+    const { placeholder, numeric } = this.state;
     return (
       <View>
         <TextInput
           style={ComponentStyles.input}
           placeholderTextColor={Colors.secondary}
           placeholder={placeholder}
+          keyboardType={numeric ? "numeric" : "default"}
           onChangeText={text => this.setState({ text })}
         />
       </View>

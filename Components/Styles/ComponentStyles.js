@@ -18,5 +18,17 @@ export const ComponentStyles = StyleSheet.create({
     margin: 10,
     padding: 10,
     color: Colors.primary
+  },
+  toggle: {
+    height: 50,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  toggleText: {
+    color: Colors.primary,
+    fontWeight: "normal",
+    fontSize: 16
   }
 });
