@@ -14,12 +14,17 @@ export default class Toggle extends Component {
   }
 
   render() {
-    const { text, value, onValueChange } = this.state;
+    const { text, value } = this.state;
     return (
       <View style={ComponentStyles.toggle}>
         <Text style={ComponentStyles.toggleText}>{text}</Text>
-        <Switch value={value} onValueChange={onValueChange} />
+        <Switch value={value} onValueChange={this.toggleValue} />
       </View>
     );
   }
+
+  toggleValue = value => {
+    this.setState({ value: value });
+    this.state.onValueChange(value);
+  };
 }
