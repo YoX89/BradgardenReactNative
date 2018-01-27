@@ -13,6 +13,10 @@ export default class Input extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.onRef(this);
+  }
+
   render() {
     const { placeholder, numeric } = this.state;
     return (
@@ -26,5 +30,9 @@ export default class Input extends Component {
         />
       </View>
     );
+  }
+
+  text() {
+    return this.state.text;
   }
 }

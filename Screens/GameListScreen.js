@@ -16,10 +16,9 @@ import { Colors } from "../Styles/Colors";
 import Button from "../Components/Button";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
+import Api from "../Networking/Api";
 
 const extractKey = ({ id }) => id;
-const baseURL =
-  "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
 
 export default class GameListScreen extends PureComponent {
   constructor() {
@@ -43,8 +42,7 @@ export default class GameListScreen extends PureComponent {
 
   componentWillMount = async () => {
     try {
-      const response = await fetch(baseURL + "/games");
-      const games = await response.json();
+      const games = await Api.fetchGames();
       this.setState({ loading: false, games });
     } catch (e) {
       this.setState({ loading: false, error: true });

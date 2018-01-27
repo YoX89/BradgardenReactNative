@@ -12,10 +12,9 @@ import {
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
+import Api from "../Networking/Api";
 
 const extractKey = ({ id }) => id;
-const baseURL =
-  "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
 
 export default class MemberListScreen extends PureComponent {
   constructor() {
@@ -39,8 +38,7 @@ export default class MemberListScreen extends PureComponent {
 
   componentWillMount = async () => {
     try {
-      const response = await fetch(baseURL + "/members");
-      const members = await response.json();
+      const members = await Api.fetchMembers();
       this.setState({ loading: false, members });
     } catch (e) {
       this.setState({ loading: false, error: true });

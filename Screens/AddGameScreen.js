@@ -12,9 +12,7 @@ import Modal from "react-native-modal";
 import Input from "../Components/Input";
 import Button from "../Components/Button";
 import Toggle from "../Components/Toggle";
-
-const baseURL =
-  "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
+import Api from "../Networking/Api";
 
 export default class AddGameScreen extends Component {
   constructor(props) {
@@ -37,8 +35,15 @@ export default class AddGameScreen extends Component {
     return (
       <Modal isVisible={isVisible}>
         <View style={ContainerStyles.modal}>
-          <Input placeholder="Name of the game" />
-          <Input placeholder="Number of players" numeric={true} />
+          <Input
+            placeholder="Name of the game"
+            onRef={ref => (this.nameInput = ref)}
+          />
+          <Input
+            placeholder="Number of players"
+            numeric={true}
+            onRef={ref => (this.numberOfPlayersInput = ref)}
+          />
           <Toggle
             text="Has traitor"
             value={hasTraitor}
@@ -49,11 +54,32 @@ export default class AddGameScreen extends Component {
             value={isCoop}
             onValueChange={value => this.setState({ isCoop: value })}
           />
+          <Button title="Add game" onPress={() => this.addGame()} />
           <Button title="Close" onPress={() => this.toggleVisible()} />
         </View>
       </Modal>
     );
   }
+
+  addGame = async () => {
+    const { hasTraitor, isCoop } = this.state;
+    const name = this.nameInput.text();
+    const numberOfPlayers = this.numberOfPlayersInput.text();
+
+    try {
+      const success = await Api.addGame(
+        name,
+        numberOfPlayers,
+        hasTraitor,
+        isCoop
+      );
+      if (success) {
+        this.toggleVisible();
+      }
+    } catch (e) {
+      console.log("Error while posting game: " + { e });
+    }
+  };
 
   toggleVisible() {
     this.setState({ isVisible: !this.state.isVisible });
