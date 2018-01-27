@@ -14,6 +14,8 @@ import { ContainerStyles } from "./Styles/ContainerStyles";
 import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
+import Modal from "react-native-modal";
+import AddGameScreen from "./AddGameScreen";
 
 const extractKey = ({ id }) => id;
 const baseURL =
@@ -88,12 +90,16 @@ export default class GameListScreen extends PureComponent {
           renderItem={this.renderGame}
           keyExtractor={extractKey}
         />
+        <AddGameScreen
+          isVisible={false}
+          onRef={ref => (this.addGameScreen = ref)}
+        />
       </View>
     );
   }
 
   showAddGameScreen() {
-    console.log("Open add game screen");
+    this.addGameScreen.toggleVisible();
   }
 }
 
