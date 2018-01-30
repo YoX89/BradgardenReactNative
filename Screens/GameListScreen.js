@@ -73,7 +73,7 @@ export default class GameListScreen extends PureComponent {
     }
 
     return (
-      <View style={ContainerStyles.list}>
+      <View style={ContainerStyles.full}>
         <Button title="Add new game" onPress={() => this.showAddGameScreen()} />
         <FlatList
           style={ContainerStyles.list}

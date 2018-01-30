@@ -4,7 +4,9 @@ import {
   View,
   Text,
   ActivityIndicator,
-  StyleSheet
+  StyleSheet,
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { Colors } from "../Styles/Colors";
@@ -34,30 +36,32 @@ export default class AddGameScreen extends Component {
     const { isVisible, hasTraitor, isCoop } = this.state;
     return (
       <Modal isVisible={isVisible}>
-        <View style={ContainerStyles.modal}>
-          <Input
-            placeholder="Name of the game"
-            onRef={ref => (this.nameInput = ref)}
-          />
-          <Input
-            placeholder="Number of players"
-            numeric={true}
-            onRef={ref => (this.numberOfPlayersInput = ref)}
-          />
-          <Toggle
-            text="Has traitor"
-            value={hasTraitor}
-            onValueChange={value => this.setState({ hasTraitor: value })}
-          />
-          <Toggle
-            text="Is co-op"
-            value={isCoop}
-            onValueChange={value => this.setState({ isCoop: value })}
-          />
-          <Button title="Add game" onPress={() => this.addGame()} />
-          <Button title="Close" onPress={() => this.toggleVisible()} />
-          {this.state.loading && <ActivityIndicator size="large" />}
-        </View>
+        <SafeAreaView style={ContainerStyles.full}>
+          <ScrollView style={ContainerStyles.modal}>
+            <Input
+              placeholder="Name of the game"
+              onRef={ref => (this.nameInput = ref)}
+            />
+            <Input
+              placeholder="Number of players"
+              numeric={true}
+              onRef={ref => (this.numberOfPlayersInput = ref)}
+            />
+            <Toggle
+              text="Has traitor"
+              value={hasTraitor}
+              onValueChange={value => this.setState({ hasTraitor: value })}
+            />
+            <Toggle
+              text="Is co-op"
+              value={isCoop}
+              onValueChange={value => this.setState({ isCoop: value })}
+            />
+            <Button title="Add game" onPress={() => this.addGame()} />
+            <Button title="Close" onPress={() => this.toggleVisible()} />
+            {this.state.loading && <ActivityIndicator size="large" />}
+          </ScrollView>
+        </SafeAreaView>
       </Modal>
     );
   }

@@ -7,7 +7,7 @@ export const ContainerStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  list: {
+  full: {
     flex: 1
   },
   modal: {

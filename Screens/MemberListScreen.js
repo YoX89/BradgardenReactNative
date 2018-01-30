@@ -74,7 +74,7 @@ export default class MemberListScreen extends PureComponent {
 
     return (
       <FlatList
-        style={ContainerStyles.list}
+        style={ContainerStyles.full}
         data={members}
         renderItem={this.renderMember}
         keyExtractor={extractKey}
