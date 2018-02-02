@@ -4,6 +4,7 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Image,
   ScrollView
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
