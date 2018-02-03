@@ -5,6 +5,12 @@ export const RowStyles = StyleSheet.create({
   row: {
     padding: 15,
     marginBottom: 5,
+    color: Colors.black,
+    backgroundColor: Colors.secondary
+  },
+  rowSelected: {
+    padding: 15,
+    marginBottom: 5,
     color: Colors.primary,
     backgroundColor: Colors.secondary
   }

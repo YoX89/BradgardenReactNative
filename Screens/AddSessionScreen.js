@@ -61,10 +61,16 @@ export default class AddSessionScreen extends Component {
         <SelectionScreen
           isVisible={isModalVisible}
           selectables={selectables}
-          onPressDone={() => this.toggleModalVisible()}
+          onPressDone={() => this.didSelectGame()}
+          selected={[]}
         />
       </ScrollView>
     );
+  }
+
+  didSelectGame(game) {
+    this.setState({ selectedGame: game });
+    this.toggleModalVisible();
   }
 
   toggleModalVisible() {

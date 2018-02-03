@@ -1,5 +1,12 @@
 import React, { PureComponent } from "react";
-import { AppRegistry, View, FlatList, Text, SafeAreaView } from "react-native";
+import {
+  AppRegistry,
+  View,
+  FlatList,
+  Text,
+  SafeAreaView,
+  TouchableOpacity
+} from "react-native";
 import Modal from "react-native-modal";
 import Button from "../Components/Button";
 import { ContainerStyles } from "./Styles/ContainerStyles";
@@ -7,13 +14,32 @@ import { RowStyles } from "./Styles/RowStyles";
 
 const extractKey = ({ id }) => id;
 
+class SelectableItem extends React.PureComponent {
+  onPress = () => {
+    this.props.onPressItem(this.props.id);
+  };
+
+  render() {
+    return (
+      <TouchableOpacity onPress={this.onPress}>
+        <Text
+          style={this.props.selected ? RowStyles.rowSelected : RowStyles.row}
+        >
+          {this.props.text}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
 export default class SelectionScreen extends PureComponent {
   constructor(props) {
     super();
     this.state = {
       isVisible: props.isVisible,
       selectables: props.selectables,
-      onPressDone: props.onPressDone
+      onPressDone: props.onPressDone,
+      selected: props.selected
     };
   }
 
@@ -24,10 +50,33 @@ export default class SelectionScreen extends PureComponent {
     if (this.state.selectables != nextProps.selectables) {
       this.setState({ selectables: nextProps.selectables });
     }
+    if (this.state.selected != nextProps.selected) {
+      this.setState({ selected: nextProps.selected });
+    }
   }
 
+  onPressItem = id => {
+    const { selected } = this.state;
+
+    const index = selected.indexOf(id);
+    const newSelected = selected.splice(0);
+    if (index != -1) {
+      newSelected.splice(index, 1);
+    } else {
+      newSelected.push(id);
+    }
+    this.setState({ selected: newSelected });
+  };
+
   renderSelectable = ({ item }) => {
-    return <Text style={RowStyles.row}>{item.text}</Text>;
+    return (
+      <SelectableItem
+        id={item.id}
+        onPressItem={this.onPressItem}
+        selected={this.state.selected.indexOf(item.id) != -1}
+        text={item.text}
+      />
+    );
   };
 
   render() {
@@ -41,6 +90,7 @@ export default class SelectionScreen extends PureComponent {
             <FlatList
               style={ContainerStyles.full}
               data={selectables}
+              extraData={this.state}
               renderItem={this.renderSelectable}
               keyExtractor={extractKey}
             />
