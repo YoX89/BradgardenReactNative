@@ -5,15 +5,13 @@ import {
   FlatList,
   Text,
   ActivityIndicator,
-  StyleSheet,
-  SafeAreaView,
   Image
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
-import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
 import Button from "../Components/Button";
+import ListItem from "../Components/ListItem";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
 import Api from "../Networking/Api";
@@ -50,7 +48,7 @@ export default class GameListScreen extends PureComponent {
   };
 
   renderGame = ({ item }) => {
-    return <Text style={RowStyles.row}>{item.name}</Text>;
+    return <ListItem text={item.name} />;
   };
 
   render() {

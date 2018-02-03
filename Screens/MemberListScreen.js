@@ -5,13 +5,11 @@ import {
   FlatList,
   Text,
   ActivityIndicator,
-  StyleSheet,
-  SafeAreaView,
   Image
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
-import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
+import ListItem from "../Components/ListItem";
 import Api from "../Networking/Api";
 
 const extractKey = ({ id }) => id;
@@ -46,11 +44,7 @@ export default class MemberListScreen extends PureComponent {
   };
 
   renderMember = ({ item }) => {
-    return (
-      <Text style={RowStyles.row}>
-        {item.firstName} {item.lastName}
-      </Text>
-    );
+    return <ListItem text={item.firstName + " " + item.lastName} />;
   };
 
   render() {

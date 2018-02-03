@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { AppRegistry, Switch, Text, View } from "react-native";
-import { Colors } from "../Styles/Colors";
+import { Switch, Text, View } from "react-native";
 import { ComponentStyles } from "./Styles/ComponentStyles";
 
 export default class Toggle extends Component {

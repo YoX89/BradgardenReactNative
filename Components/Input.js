@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { AppRegistry, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { Colors } from "../Styles/Colors";
 import { ComponentStyles } from "./Styles/ComponentStyles";
 

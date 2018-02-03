@@ -9,28 +9,10 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import Button from "../Components/Button";
+import SelectableItem from "../Components/SelectableItem";
 import { ContainerStyles } from "./Styles/ContainerStyles";
-import { RowStyles } from "./Styles/RowStyles";
 
 const extractKey = ({ id }) => id;
-
-class SelectableItem extends React.PureComponent {
-  onPress = () => {
-    this.props.onPressItem(this.props.id);
-  };
-
-  render() {
-    return (
-      <TouchableOpacity onPress={this.onPress}>
-        <Text
-          style={this.props.selected ? RowStyles.rowSelected : RowStyles.row}
-        >
-          {this.props.text}
-        </Text>
-      </TouchableOpacity>
-    );
-  }
-}
 
 export default class SelectionScreen extends PureComponent {
   constructor(props) {

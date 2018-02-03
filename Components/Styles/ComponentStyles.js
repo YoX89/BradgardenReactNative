@@ -30,5 +30,17 @@ export const ComponentStyles = StyleSheet.create({
     color: Colors.primary,
     fontWeight: "normal",
     fontSize: 16
+  },
+  row: {
+    padding: 15,
+    marginBottom: 5,
+    color: Colors.black,
+    backgroundColor: Colors.secondary
+  },
+  rowSelected: {
+    padding: 15,
+    marginBottom: 5,
+    color: Colors.primary,
+    backgroundColor: Colors.secondary
   }
 });

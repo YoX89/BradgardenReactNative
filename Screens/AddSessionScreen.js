@@ -8,7 +8,6 @@ import {
   ScrollView
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
-import { RowStyles } from "./Styles/RowStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import Button from "../Components/Button";
 import Api from "../Networking/Api";
