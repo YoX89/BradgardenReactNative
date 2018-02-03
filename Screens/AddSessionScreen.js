@@ -19,7 +19,9 @@ export default class AddSessionScreen extends Component {
     super();
     this.state = {
       loading: false,
-      selectedGame: null
+      selectedGame: null,
+      isModalVisible: false,
+      selectables: []
     };
   }
 
@@ -34,7 +36,7 @@ export default class AddSessionScreen extends Component {
   };
 
   render() {
-    const { loading, selectedGame } = this.state;
+    const { loading, selectedGame, isModalVisible, selectables } = this.state;
 
     if (loading) {
       return (
@@ -57,12 +59,16 @@ export default class AddSessionScreen extends Component {
             />
           )}
         <SelectionScreen
-          isVisible={false}
-          selectables={[]}
-          onRef={ref => (this.selectionScreen = ref)}
+          isVisible={isModalVisible}
+          selectables={selectables}
+          onPressDone={() => this.toggleModalVisible()}
         />
       </ScrollView>
     );
+  }
+
+  toggleModalVisible() {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
   }
 
   chooseGame = async () => {
@@ -71,8 +77,8 @@ export default class AddSessionScreen extends Component {
       game.text = game.name;
       return game;
     });
-    this.selectionScreen.setSelectables(games);
-    this.selectionScreen.toggleVisible();
+    this.setState({ selectables: games });
+    this.toggleModalVisible();
   };
 
   chooseWinners() {
@@ -89,8 +95,8 @@ export default class AddSessionScreen extends Component {
       member.text = member.firstName + " " + member.lastName;
       return member;
     });
-    this.selectionScreen.setSelectables(members);
-    this.selectionScreen.toggleVisible();
+    this.setState({ selectables: members });
+    this.toggleModalVisible();
   };
 }
 

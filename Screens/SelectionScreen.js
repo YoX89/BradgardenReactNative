@@ -11,21 +11,19 @@ export default class SelectionScreen extends PureComponent {
   constructor(props) {
     super();
     this.state = {
+      isVisible: props.isVisible,
       selectables: props.selectables,
-      isVisible: props.isVisible
+      onPressDone: props.onPressDone
     };
   }
 
-  componentDidMount() {
-    this.props.onRef(this);
-  }
-
-  toggleVisible() {
-    this.setState({ isVisible: !this.state.isVisible });
-  }
-
-  setSelectables(selectables) {
-    this.setState({ selectables: selectables });
+  componentWillReceiveProps(nextProps) {
+    if (this.state.isVisible != nextProps.isVisible) {
+      this.setState({ isVisible: nextProps.isVisible });
+    }
+    if (this.state.selectables != nextProps.selectables) {
+      this.setState({ selectables: nextProps.selectables });
+    }
   }
 
   renderSelectable = ({ item }) => {
@@ -33,13 +31,13 @@ export default class SelectionScreen extends PureComponent {
   };
 
   render() {
-    const { isVisible, selectables } = this.state;
+    const { isVisible, selectables, onPressDone } = this.state;
 
     return (
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.full}>
           <View style={ContainerStyles.modal}>
-            <Button title="Done" onPress={() => this.toggleVisible()} />
+            <Button title="Done" onPress={onPressDone} />
             <FlatList
               style={ContainerStyles.full}
               data={selectables}
