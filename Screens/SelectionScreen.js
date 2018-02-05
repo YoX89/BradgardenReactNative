@@ -21,7 +21,8 @@ export default class SelectionScreen extends PureComponent {
       isVisible: props.isVisible,
       selectables: props.selectables,
       onPressDone: props.onPressDone,
-      selected: props.selected
+      selectedIds: props.selectedIds,
+      selectMultiple: props.selectMultiple
     };
   }
 
@@ -32,22 +33,32 @@ export default class SelectionScreen extends PureComponent {
     if (this.state.selectables != nextProps.selectables) {
       this.setState({ selectables: nextProps.selectables });
     }
-    if (this.state.selected != nextProps.selected) {
-      this.setState({ selected: nextProps.selected });
+    if (this.state.selectedIds != nextProps.selectedIds) {
+      this.setState({ selectedIds: nextProps.selectedIds });
+    }
+    if (this.state.selectMultiple != nextProps.selectMultiple) {
+      this.setState({ selectMultiple: nextProps.selectMultiple });
+    }
+    if (this.state.onPressDone != nextProps.onPressDone) {
+      this.setState({ onPressDone: nextProps.onPressDone });
     }
   }
 
   onPressItem = id => {
-    const { selected } = this.state;
+    const { selectedIds } = this.state;
 
-    const index = selected.indexOf(id);
-    const newSelected = selected.splice(0);
-    if (index != -1) {
-      newSelected.splice(index, 1);
+    if (this.state.selectMultiple) {
+      const index = selectedIds.indexOf(id);
+      const newSelected = selectedIds.splice(0);
+      if (index != -1) {
+        newSelected.splice(index, 1);
+      } else {
+        newSelected.push(id);
+      }
+      this.setState({ selectedIds: newSelected });
     } else {
-      newSelected.push(id);
+      this.setState({ selectedIds: [id] });
     }
-    this.setState({ selected: newSelected });
   };
 
   renderSelectable = ({ item }) => {
@@ -55,20 +66,33 @@ export default class SelectionScreen extends PureComponent {
       <SelectableItem
         id={item.id}
         onPressItem={this.onPressItem}
-        selected={this.state.selected.indexOf(item.id) != -1}
+        selected={this.state.selectedIds.indexOf(item.id) != -1}
         text={item.text}
       />
     );
   };
 
+  onPressDone = () => {
+    const {
+      selectables,
+      selectedIds,
+      selectMultiple,
+      onPressDone
+    } = this.state;
+    const selectedObjects = selectables.filter(
+      selectable => selectedIds.indexOf(selectable.id) != -1
+    );
+    onPressDone(selectedObjects);
+  };
+
   render() {
-    const { isVisible, selectables, onPressDone } = this.state;
+    const { isVisible, selectables } = this.state;
 
     return (
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.full}>
           <View style={ContainerStyles.modal}>
-            <Button title="Done" onPress={onPressDone} />
+            <Button title="Done" onPress={this.onPressDone} />
             <FlatList
               style={ContainerStyles.full}
               data={selectables}

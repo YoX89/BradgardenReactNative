@@ -20,7 +20,9 @@ export default class AddSessionScreen extends Component {
       loading: false,
       selectedGame: null,
       isModalVisible: false,
-      selectables: []
+      selectables: [],
+      selectMultiple: false,
+      selectedIds: []
     };
   }
 
@@ -35,7 +37,15 @@ export default class AddSessionScreen extends Component {
   };
 
   render() {
-    const { loading, selectedGame, isModalVisible, selectables } = this.state;
+    const {
+      loading,
+      selectedGame,
+      isModalVisible,
+      selectables,
+      selectMultiple,
+      selectedIds,
+      onPressDone
+    } = this.state;
 
     if (loading) {
       return (
@@ -48,6 +58,7 @@ export default class AddSessionScreen extends Component {
     return (
       <ScrollView>
         <Button title="Choose game" onPress={() => this.chooseGame()} />
+        {selectedGame && <Text>{selectedGame.name}</Text>}
         <Button title="Choose winners" onPress={() => this.chooseWinners()} />
         <Button title="Choose losers" onPress={() => this.chooseLosers()} />
         {selectedGame &&
@@ -60,29 +71,42 @@ export default class AddSessionScreen extends Component {
         <SelectionScreen
           isVisible={isModalVisible}
           selectables={selectables}
-          onPressDone={() => this.didSelectGame()}
-          selected={[]}
+          onPressDone={onPressDone}
+          selectedIds={selectedIds}
+          selectMultiple={selectMultiple}
         />
       </ScrollView>
     );
   }
 
-  didSelectGame(game) {
+  didSelectGame = gameArray => {
+    const game = gameArray[0];
     this.setState({ selectedGame: game });
     this.toggleModalVisible();
-  }
+  };
+
+  didSelectMember = memberArray => {
+    this.toggleModalVisible();
+  };
 
   toggleModalVisible() {
     this.setState({ isModalVisible: !this.state.isModalVisible });
   }
 
   chooseGame = async () => {
+    const { selectedGame } = this.state;
     var games = await Api.fetchGames();
     games = games.map(game => {
       game.text = game.name;
       return game;
     });
-    this.setState({ selectables: games });
+    const selectedIds = selectedGame ? [selectedGame.id] : [];
+    this.setState({
+      selectables: games,
+      selectMultiple: false,
+      selectedIds: selectedIds,
+      onPressDone: this.didSelectGame
+    });
     this.toggleModalVisible();
   };
 
@@ -100,7 +124,12 @@ export default class AddSessionScreen extends Component {
       member.text = member.firstName + " " + member.lastName;
       return member;
     });
-    this.setState({ selectables: members });
+    this.setState({
+      selectables: members,
+      selectMultiple: true,
+      selectedIds: [],
+      onPressDone: this.didSelectMember
+    });
     this.toggleModalVisible();
   };
 }
