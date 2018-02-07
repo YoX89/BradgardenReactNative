@@ -1,23 +1,17 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Platform,
-  StatusBar,
-  SafeAreaView
-} from "react-native";
+import { StyleSheet, View, Platform, StatusBar } from "react-native";
 import { Tabs } from "./Router/Router";
 import { Colors } from "./Styles/Colors";
 
 export default class App extends React.Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.statusBar}>
           <StatusBar backgroundColor={"transparent"} translucent />
         </View>
         <Tabs />
-      </SafeAreaView>
+      </View>
     );
   }
 }

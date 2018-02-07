@@ -56,7 +56,7 @@ export default class AddSessionScreen extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
         <Button title="Choose game" onPress={() => this.chooseGame()} />
         {selectedGame && <Text>{selectedGame.name}</Text>}
         <Button title="Choose winners" onPress={() => this.chooseWinners()} />

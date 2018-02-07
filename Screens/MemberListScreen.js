@@ -72,6 +72,7 @@ export default class MemberListScreen extends PureComponent {
         data={members}
         renderItem={this.renderMember}
         keyExtractor={extractKey}
+        contentInsetAdjustmentBehavior={"automatic"}
       />
     );
   }

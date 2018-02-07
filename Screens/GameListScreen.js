@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import {
   AppRegistry,
   View,
+  SafeAreaView,
   FlatList,
   Text,
   ActivityIndicator,
@@ -71,7 +72,7 @@ export default class GameListScreen extends PureComponent {
     }
 
     return (
-      <View style={ContainerStyles.full}>
+      <SafeAreaView style={ContainerStyles.full}>
         <Button title="Add new game" onPress={() => this.showAddGameScreen()} />
         <FlatList
           style={ContainerStyles.list}
@@ -83,7 +84,7 @@ export default class GameListScreen extends PureComponent {
           isVisible={false}
           onRef={ref => (this.addGameScreen = ref)}
         />
-      </View>
+      </SafeAreaView>
     );
   }
 
