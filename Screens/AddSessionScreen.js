@@ -10,6 +10,7 @@ import {
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import Button from "../Components/Button";
+import { ComponentStyles } from "../Components/Styles/ComponentStyles";
 import Api from "../Networking/Api";
 import SelectionScreen from "./SelectionScreen";
 
@@ -19,6 +20,7 @@ export default class AddSessionScreen extends Component {
     this.state = {
       loading: false,
       selectedGame: null,
+      selectedWinners: null,
       isModalVisible: false,
       selectables: [],
       selectMultiple: false,
@@ -40,6 +42,7 @@ export default class AddSessionScreen extends Component {
     const {
       loading,
       selectedGame,
+      selectedWinners,
       isModalVisible,
       selectables,
       selectMultiple,
@@ -55,10 +58,18 @@ export default class AddSessionScreen extends Component {
       );
     }
 
+    const nameReducer = (text, member) => text + member.text + "\n";
     return (
       <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
+        {selectedGame && (
+          <Text style={ComponentStyles.rowSelected}>{selectedGame.name}</Text>
+        )}
         <Button title="Choose game" onPress={() => this.chooseGame()} />
-        {selectedGame && <Text>{selectedGame.name}</Text>}
+        {selectedWinners && (
+          <Text style={ComponentStyles.rowSelected}>
+            {selectedWinners.reduce(nameReducer, "").trim()}
+          </Text>
+        )}
         <Button title="Choose winners" onPress={() => this.chooseWinners()} />
         <Button title="Choose losers" onPress={() => this.chooseLosers()} />
         {selectedGame &&
@@ -86,6 +97,7 @@ export default class AddSessionScreen extends Component {
   };
 
   didSelectMember = memberArray => {
+    this.setState({ selectedWinners: memberArray });
     this.toggleModalVisible();
   };
 
@@ -119,15 +131,19 @@ export default class AddSessionScreen extends Component {
   }
 
   openMembers = async () => {
+    const { selectedWinners } = this.state;
     var members = await Api.fetchMembers();
     members = members.map(member => {
       member.text = member.firstName + " " + member.lastName;
       return member;
     });
+    const selectedIds = selectedWinners
+      ? selectedWinners.map(winner => winner.id)
+      : [];
     this.setState({
       selectables: members,
       selectMultiple: true,
-      selectedIds: [],
+      selectedIds: selectedIds,
       onPressDone: this.didSelectMember
     });
     this.toggleModalVisible();
