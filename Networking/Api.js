@@ -4,6 +4,7 @@ const baseURL =
 export default class Api {
   static members = null;
   static games = null;
+  static sessions = null;
 
   static fetchGames = async () => {
     if (Api.games != null) {
@@ -40,6 +41,33 @@ export default class Api {
       })
     });
     Api.games = null;
+    return response.ok;
+  };
+
+  static addSession = async (game, winners, losers, traitors) => {
+    const gameId = game.id;
+    const winnerIds =
+      winners && winners.length > 0 ? winners.map(winner => winner.id) : [];
+    const loserIds =
+      losers && losers.length > 0 ? losers.map(loser => loser.id) : [];
+    const traitorIds =
+      traitors && traitors.length > 0
+        ? traitors.map(traitor => traitor.id)
+        : [];
+    const response = await fetch(baseURL + "/sessions", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        gameID: { gameId },
+        winners: { winnerIds },
+        losers: { loserIds },
+        traitors: { traitorIds }
+      })
+    });
+    Api.sessions = null;
     return response.ok;
   };
 }

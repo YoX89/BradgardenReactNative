@@ -27,7 +27,8 @@ export default class AddSessionScreen extends Component {
       isModalVisible: false,
       selectables: [],
       selectMultiple: false,
-      selectedIds: []
+      selectedIds: [],
+      loading: false
     };
   }
 
@@ -55,14 +56,6 @@ export default class AddSessionScreen extends Component {
       onPressDone
     } = this.state;
 
-    if (loading) {
-      return (
-        <View style={ContainerStyles.center}>
-          <ActivityIndicator animating={true} />
-        </View>
-      );
-    }
-
     const hasTraitor = selectedGame && selectedGame.traitor;
     const selectedGames = selectedGame ? [selectedGame] : null;
     return (
@@ -89,6 +82,8 @@ export default class AddSessionScreen extends Component {
             onPress={() => this.chooseTraitorsAction()}
           />
         )}
+        <Button title="Add session" onPress={() => this.addSession()} />
+        {loading && <ActivityIndicator size="large" />}
         <SelectionScreen
           isVisible={isModalVisible}
           selectables={selectables}
@@ -99,6 +94,38 @@ export default class AddSessionScreen extends Component {
       </ScrollView>
     );
   }
+
+  addSession = async () => {
+    const {
+      selectedGame,
+      selectedWinners,
+      selectedLosers,
+      selectedTraitors
+    } = this.state;
+
+    if (!selectedGame) return;
+
+    this.setState({ loading: true });
+    const success = await Api.addSession(
+      selectedGame,
+      selectedWinners,
+      selectedLosers,
+      selectedTraitors
+    );
+
+    if (success) {
+      this.setState({
+        selectedGame: null,
+        selectedWinners: null,
+        selectedLosers: null,
+        selectedTraitors: null,
+        loading: false
+      });
+    } else {
+      this.setState({ loading: false });
+      console.log("Error while posting session");
+    }
+  };
 
   toggleModalVisible() {
     this.setState({ isModalVisible: !this.state.isModalVisible });
