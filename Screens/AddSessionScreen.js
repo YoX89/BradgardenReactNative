@@ -22,6 +22,7 @@ export default class AddSessionScreen extends Component {
       selectedGame: null,
       selectedWinners: null,
       selectedLosers: null,
+      selectedTraitors: null,
       isModalVisible: false,
       selectables: [],
       selectMultiple: false,
@@ -45,6 +46,7 @@ export default class AddSessionScreen extends Component {
       selectedGame,
       selectedWinners,
       selectedLosers,
+      selectedTraitors,
       isModalVisible,
       selectables,
       selectMultiple,
@@ -61,31 +63,43 @@ export default class AddSessionScreen extends Component {
     }
 
     const nameReducer = (text, member) => text + member.text + "\n";
+    const hasTraitor = selectedGame && selectedGame.traitor;
     return (
       <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
         {selectedGame && (
           <Text style={ComponentStyles.rowSelected}>{selectedGame.name}</Text>
         )}
-        <Button title="Choose game" onPress={() => this.chooseGame()} />
+        <Button title="Choose game" onPress={() => this.chooseGameAction()} />
         {selectedWinners && (
           <Text style={ComponentStyles.rowSelected}>
             {selectedWinners.reduce(nameReducer, "").trim()}
           </Text>
         )}
-        <Button title="Choose winners" onPress={() => this.chooseWinners()} />
+        <Button
+          title="Choose winners"
+          onPress={() => this.chooseWinnersAction()}
+        />
         {selectedLosers && (
           <Text style={ComponentStyles.rowSelected}>
             {selectedLosers.reduce(nameReducer, "").trim()}
           </Text>
         )}
-        <Button title="Choose losers" onPress={() => this.chooseLosers()} />
-        {selectedGame &&
-          selectedGame.hasTraitor && (
-            <Button
-              title="Choose traitors"
-              onPress={() => this.chooseTraitors()}
-            />
+        <Button
+          title="Choose losers"
+          onPress={() => this.chooseLosersAction()}
+        />
+        {hasTraitor &&
+          selectedTraitors && (
+            <Text style={ComponentStyles.rowSelected}>
+              {selectedTraitors.reduce(nameReducer, "").trim()}
+            </Text>
           )}
+        {hasTraitor && (
+          <Button
+            title="Choose traitors"
+            onPress={() => this.chooseTraitorsAction()}
+          />
+        )}
         <SelectionScreen
           isVisible={isModalVisible}
           selectables={selectables}
@@ -107,7 +121,7 @@ export default class AddSessionScreen extends Component {
     this.toggleModalVisible();
   };
 
-  chooseGame = async () => {
+  chooseGameAction = async () => {
     const { selectedGame } = this.state;
     var games = await Api.fetchGames();
     games = games.map(game => {
@@ -124,12 +138,19 @@ export default class AddSessionScreen extends Component {
     this.toggleModalVisible();
   };
 
-  chooseWinners() {
-    this.openWinners();
+  chooseWinnersAction() {
+    const { selectedWinners } = this.state;
+    this.openMemberSelection(selectedWinners, this.didSelectWinners);
   }
 
-  chooseLosers() {
-    this.openLosers();
+  chooseLosersAction() {
+    const { selectedLosers } = this.state;
+    this.openMemberSelection(selectedLosers, this.didSelectLosers);
+  }
+
+  chooseTraitorsAction() {
+    const { selectedTraitors } = this.state;
+    this.openMemberSelection(selectedTraitors, this.didSelectTraitors);
   }
 
   didSelectWinners = memberArray => {
@@ -142,40 +163,25 @@ export default class AddSessionScreen extends Component {
     this.toggleModalVisible();
   };
 
-  openWinners = async () => {
-    const { selectedWinners } = this.state;
-    var members = await Api.fetchMembers();
-    members = members.map(member => {
-      member.text = member.firstName + " " + member.lastName;
-      return member;
-    });
-    const selectedIds = selectedWinners
-      ? selectedWinners.map(winner => winner.id)
-      : [];
-    this.setState({
-      selectables: members,
-      selectMultiple: true,
-      selectedIds: selectedIds,
-      onPressDone: this.didSelectWinners
-    });
+  didSelectTraitors = memberArray => {
+    this.setState({ selectedTraitors: memberArray });
     this.toggleModalVisible();
   };
 
-  openLosers = async () => {
-    const { selectedLosers } = this.state;
+  openMemberSelection = async (selectedMembers, onPressDone) => {
     var members = await Api.fetchMembers();
     members = members.map(member => {
       member.text = member.firstName + " " + member.lastName;
       return member;
     });
-    const selectedIds = selectedLosers
-      ? selectedLosers.map(loser => loser.id)
+    const selectedIds = selectedMembers
+      ? selectedMembers.map(member => member.id)
       : [];
     this.setState({
       selectables: members,
       selectMultiple: true,
       selectedIds: selectedIds,
-      onPressDone: this.didSelectLosers
+      onPressDone: onPressDone
     });
     this.toggleModalVisible();
   };
