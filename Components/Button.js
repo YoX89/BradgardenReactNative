@@ -12,11 +12,7 @@ export default class Button extends Component {
     const { title, onPress } = this.state;
     return (
       <View>
-        <TouchableOpacity
-          style={ComponentStyles.button}
-          title={title}
-          onPress={onPress}
-        >
+        <TouchableOpacity style={ComponentStyles.button} onPress={onPress}>
           <Text style={ComponentStyles.buttonText}>{title}</Text>
         </TouchableOpacity>
       </View>

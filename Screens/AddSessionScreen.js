@@ -10,6 +10,7 @@ import {
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import Button from "../Components/Button";
+import Picker from "../Components/Picker";
 import { ComponentStyles } from "../Components/Styles/ComponentStyles";
 import Api from "../Networking/Api";
 import SelectionScreen from "./SelectionScreen";
@@ -62,41 +63,29 @@ export default class AddSessionScreen extends Component {
       );
     }
 
-    const nameReducer = (text, member) => text + member.text + "\n";
     const hasTraitor = selectedGame && selectedGame.traitor;
+    const selectedGames = selectedGame ? [selectedGame] : null;
     return (
       <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
-        {selectedGame && (
-          <Text style={ComponentStyles.rowSelected}>{selectedGame.name}</Text>
-        )}
-        <Button title="Choose game" onPress={() => this.chooseGameAction()} />
-        {selectedWinners && (
-          <Text style={ComponentStyles.rowSelected}>
-            {selectedWinners.reduce(nameReducer, "").trim()}
-          </Text>
-        )}
-        <Button
-          title="Choose winners"
+        <Picker
+          selected={selectedGames}
+          placeholder="Choose game"
+          onPress={() => this.chooseGameAction()}
+        />
+        <Picker
+          selected={selectedWinners}
+          placeholder="Choose winners"
           onPress={() => this.chooseWinnersAction()}
         />
-        {selectedLosers && (
-          <Text style={ComponentStyles.rowSelected}>
-            {selectedLosers.reduce(nameReducer, "").trim()}
-          </Text>
-        )}
-        <Button
-          title="Choose losers"
+        <Picker
+          selected={selectedLosers}
+          placeholder="Choose losers"
           onPress={() => this.chooseLosersAction()}
         />
-        {hasTraitor &&
-          selectedTraitors && (
-            <Text style={ComponentStyles.rowSelected}>
-              {selectedTraitors.reduce(nameReducer, "").trim()}
-            </Text>
-          )}
         {hasTraitor && (
-          <Button
-            title="Choose traitors"
+          <Picker
+            selected={selectedTraitors}
+            placeholder="Choose traitors"
             onPress={() => this.chooseTraitorsAction()}
           />
         )}

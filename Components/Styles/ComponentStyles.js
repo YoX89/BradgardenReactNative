@@ -42,5 +42,27 @@ export const ComponentStyles = StyleSheet.create({
     marginBottom: 5,
     color: Colors.primary,
     backgroundColor: Colors.secondary
+  },
+  picker: {
+    margin: 10
+  },
+  pickerButton: {
+    padding: 10,
+    backgroundColor: Colors.secondary
+  },
+  pickerPlaceholderText: {
+    color: Colors.primary,
+    fontWeight: "500",
+    fontSize: 18
+  },
+  pickerFloatingText: {
+    color: Colors.primary,
+    marginBottom: 4,
+    fontWeight: "500",
+    fontSize: 18
+  },
+  pickerText: {
+    color: Colors.black,
+    fontSize: 14
   }
 });
