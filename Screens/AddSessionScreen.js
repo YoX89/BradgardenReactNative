@@ -21,6 +21,7 @@ export default class AddSessionScreen extends Component {
       loading: false,
       selectedGame: null,
       selectedWinners: null,
+      selectedLosers: null,
       isModalVisible: false,
       selectables: [],
       selectMultiple: false,
@@ -43,6 +44,7 @@ export default class AddSessionScreen extends Component {
       loading,
       selectedGame,
       selectedWinners,
+      selectedLosers,
       isModalVisible,
       selectables,
       selectMultiple,
@@ -71,6 +73,11 @@ export default class AddSessionScreen extends Component {
           </Text>
         )}
         <Button title="Choose winners" onPress={() => this.chooseWinners()} />
+        {selectedLosers && (
+          <Text style={ComponentStyles.rowSelected}>
+            {selectedLosers.reduce(nameReducer, "").trim()}
+          </Text>
+        )}
         <Button title="Choose losers" onPress={() => this.chooseLosers()} />
         {selectedGame &&
           selectedGame.hasTraitor && (
@@ -90,20 +97,15 @@ export default class AddSessionScreen extends Component {
     );
   }
 
+  toggleModalVisible() {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  }
+
   didSelectGame = gameArray => {
     const game = gameArray[0];
     this.setState({ selectedGame: game });
     this.toggleModalVisible();
   };
-
-  didSelectMember = memberArray => {
-    this.setState({ selectedWinners: memberArray });
-    this.toggleModalVisible();
-  };
-
-  toggleModalVisible() {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-  }
 
   chooseGame = async () => {
     const { selectedGame } = this.state;
@@ -123,14 +125,24 @@ export default class AddSessionScreen extends Component {
   };
 
   chooseWinners() {
-    this.openMembers();
+    this.openWinners();
   }
 
   chooseLosers() {
-    this.openMembers();
+    this.openLosers();
   }
 
-  openMembers = async () => {
+  didSelectWinners = memberArray => {
+    this.setState({ selectedWinners: memberArray });
+    this.toggleModalVisible();
+  };
+
+  didSelectLosers = memberArray => {
+    this.setState({ selectedLosers: memberArray });
+    this.toggleModalVisible();
+  };
+
+  openWinners = async () => {
     const { selectedWinners } = this.state;
     var members = await Api.fetchMembers();
     members = members.map(member => {
@@ -144,7 +156,26 @@ export default class AddSessionScreen extends Component {
       selectables: members,
       selectMultiple: true,
       selectedIds: selectedIds,
-      onPressDone: this.didSelectMember
+      onPressDone: this.didSelectWinners
+    });
+    this.toggleModalVisible();
+  };
+
+  openLosers = async () => {
+    const { selectedLosers } = this.state;
+    var members = await Api.fetchMembers();
+    members = members.map(member => {
+      member.text = member.firstName + " " + member.lastName;
+      return member;
+    });
+    const selectedIds = selectedLosers
+      ? selectedLosers.map(loser => loser.id)
+      : [];
+    this.setState({
+      selectables: members,
+      selectMultiple: true,
+      selectedIds: selectedIds,
+      onPressDone: this.didSelectLosers
     });
     this.toggleModalVisible();
   };
