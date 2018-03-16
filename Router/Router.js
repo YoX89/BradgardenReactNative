@@ -1,5 +1,5 @@
 import React from "react";
-import { TabNavigator } from "react-navigation";
+import { TabNavigator, TabBarBottom } from "react-navigation";
 import MemberListScreen from "../Screens/MemberListScreen";
 import GameListScreen from "../Screens/GameListScreen";
 import AddSessionScreen from "../Screens/AddSessionScreen";
@@ -27,6 +27,9 @@ export const Tabs = TabNavigator(
       style: {
         backgroundColor: Colors.bar
       }
-    }
+    },
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: "bottom",
+    swipeEnabled: true
   }
 );
