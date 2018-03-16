@@ -1,5 +1,7 @@
-const baseURL =
-  "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
+// const baseURL =
+  // "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
+
+const baseURL = "http://www.xn--brdgrden-1zam.faith/api";
 
 export default class Api {
   static members = null;
@@ -10,6 +12,7 @@ export default class Api {
     if (Api.games != null) {
       return Api.games;
     }
+
     const response = await fetch(baseURL + "/games");
     const games = await response.json();
     Api.games = games;
@@ -20,6 +23,7 @@ export default class Api {
     if (Api.members != null) {
       return Api.members;
     }
+
     const response = await fetch(baseURL + "/members");
     const members = await response.json();
     Api.members = members;
