@@ -38,10 +38,10 @@ export default class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: { name },
-        maxNumberOflayers: { numberOfPlayers },
-        traitor: { hasTraitor },
-        coop: { isCoop }
+        name: name,
+        maxNumOfPlayers: numberOfPlayers,
+        traitor: hasTraitor,
+        coop: isCoop 
       })
     });
     Api.games = null;
@@ -65,10 +65,10 @@ export default class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        gameID: { gameId },
-        winners: { winnerIds },
-        losers: { loserIds },
-        traitors: { traitorIds }
+        gameID: gameId,
+        winners: winnerIds,
+        losers: loserIds,
+        traitors: traitorIds
       })
     });
     Api.sessions = null;
