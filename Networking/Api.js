@@ -1,5 +1,5 @@
 // const baseURL =
-  // "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
+// "https://private-anon-1e01747d5a-bradgardenstats.apiary-mock.com/api";
 
 const baseURL = "http://www.xn--brdgrden-1zam.faith/api";
 
@@ -31,19 +31,21 @@ export default class Api {
   };
 
   static addGame = async (name, numberOfPlayers, hasTraitor, isCoop) => {
+    const body = JSON.stringify({
+      name: name,
+      maxNumOfPlayers: numberOfPlayers,
+      traitor: hasTraitor,
+      coop: isCoop
+    });
     const response = await fetch(baseURL + "/games", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        name: { name },
-        maxNumberOflayers: { numberOfPlayers },
-        traitor: { hasTraitor },
-        coop: { isCoop }
-      })
+      body: body
     });
+
     Api.games = null;
     return response.ok;
   };
@@ -65,10 +67,10 @@ export default class Api {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        gameID: { gameId },
-        winners: { winnerIds },
-        losers: { loserIds },
-        traitors: { traitorIds }
+        gameID: gameId,
+        winners: winnerIds,
+        losers: loserIds,
+        traitors: traitorIds
       })
     });
     Api.sessions = null;
