@@ -14,6 +14,7 @@ import Modal from "react-native-modal";
 import Input from "../Components/Input";
 import Button from "../Components/Button";
 import Toggle from "../Components/Toggle";
+import ErrorView from "../Components/ErrorView";
 import Api from "../Networking/Api";
 
 export default class AddGameScreen extends Component {
@@ -23,17 +24,19 @@ export default class AddGameScreen extends Component {
       loading: false,
       error: false,
       hasTraitor: false,
-      isCoop: false
+      isCoop: false,
+      error: null
     };
   }
 
   render() {
     const { isVisible, onClose } = this.props;
-    const { hasTraitor, isCoop } = this.state;
+    const { hasTraitor, isCoop, loading, error } = this.state;
     return (
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.full}>
           <ScrollView style={ContainerStyles.modal}>
+            {error && <ErrorView title={error.title} message={error.message} />}
             <Input
               placeholder="Name of the game"
               onRef={ref => (this.nameInput = ref)}
@@ -55,7 +58,7 @@ export default class AddGameScreen extends Component {
             />
             <Button title="Add game" onPress={() => this.addGame()} />
             <Button title="Close" onPress={() => onClose()} />
-            {this.state.loading && <ActivityIndicator size="large" />}
+            {loading && <ActivityIndicator size="large" />}
           </ScrollView>
         </SafeAreaView>
       </Modal>
@@ -68,7 +71,7 @@ export default class AddGameScreen extends Component {
     const name = this.nameInput.text();
     const numberOfPlayers = this.numberOfPlayersInput.text();
 
-    this.setState({ loading: true });
+    this.setState({ loading: true, error: null });
     try {
       const success = await Api.addGame(
         name,
@@ -77,10 +80,25 @@ export default class AddGameScreen extends Component {
         isCoop
       );
       this.setState({ loading: false });
-      onClose();
+      if (success) {
+        onClose();
+      } else {
+        this.setState({
+          error: {
+            title: "Server error",
+            message:
+              "Something went wrong while adding the game, please review your life."
+          }
+        });
+      }
     } catch (e) {
-      this.setState({ loading: false });
-      console.log("Error while posting game: " + { e });
+      this.setState({
+        loading: false,
+        error: {
+          title: "Network error",
+          message: "Make sure you are connected to the internet."
+        }
+      });
     }
   };
 }

@@ -64,5 +64,22 @@ export const ComponentStyles = StyleSheet.create({
   pickerText: {
     color: Colors.black,
     fontSize: 14
+  },
+  errorWrapper: {
+    backgroundColor: Colors.error,
+    margin: 10,
+    padding: 10,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: Colors.primary
+  },
+  errorTitle: {
+    color: Colors.primary,
+    fontSize: 18,
+    fontWeight: "700"
+  },
+  errorMessage: {
+    color: Colors.primary,
+    fontSize: 16
   }
 });
