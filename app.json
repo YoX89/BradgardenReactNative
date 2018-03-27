@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "23.0.0"
+    "name": "Brädgården",
+    "icon": "./Images/icon.png",
+    "version": "1.0.0",
+    "slug": "bradgarden",
+    "sdkVersion": "23.0.0",
+    "ios": {
+      "bundleIdentifier": "se.bradgarden.statistics"
+    },
+    "android": {
+      "package": "se.bradgarden.statistics"
+    }
   }
 }
