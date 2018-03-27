@@ -22,18 +22,14 @@ export default class AddGameScreen extends Component {
     this.state = {
       loading: false,
       error: false,
-      isVisible: props.isVisible,
       hasTraitor: false,
       isCoop: false
     };
   }
 
-  componentDidMount() {
-    this.props.onRef(this);
-  }
-
   render() {
-    const { isVisible, hasTraitor, isCoop } = this.state;
+    const { isVisible, onClose } = this.props;
+    const { hasTraitor, isCoop } = this.state;
     return (
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.full}>
@@ -58,7 +54,7 @@ export default class AddGameScreen extends Component {
               onValueChange={value => this.setState({ isCoop: value })}
             />
             <Button title="Add game" onPress={() => this.addGame()} />
-            <Button title="Close" onPress={() => this.toggleVisible()} />
+            <Button title="Close" onPress={() => onClose()} />
             {this.state.loading && <ActivityIndicator size="large" />}
           </ScrollView>
         </SafeAreaView>
@@ -68,6 +64,7 @@ export default class AddGameScreen extends Component {
 
   addGame = async () => {
     const { hasTraitor, isCoop } = this.state;
+    const { onClose } = this.props;
     const name = this.nameInput.text();
     const numberOfPlayers = this.numberOfPlayersInput.text();
 
@@ -80,18 +77,12 @@ export default class AddGameScreen extends Component {
         isCoop
       );
       this.setState({ loading: false });
-      if (success) {
-        this.toggleVisible();
-      }
+      onClose();
     } catch (e) {
       this.setState({ loading: false });
       console.log("Error while posting game: " + { e });
     }
   };
-
-  toggleVisible() {
-    this.setState({ isVisible: !this.state.isVisible });
-  }
 }
 
 AppRegistry.registerComponent("AddGameScreen", () => AddGameScreen);

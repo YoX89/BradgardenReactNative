@@ -25,7 +25,8 @@ export default class GameListScreen extends PureComponent {
     this.state = {
       loading: true,
       error: false,
-      games: []
+      games: [],
+      isAddGameScreenVisible: false
     };
   }
 
@@ -39,7 +40,11 @@ export default class GameListScreen extends PureComponent {
     )
   };
 
-  componentWillMount = async () => {
+  componentDidMount() {
+    this.fetchGames();
+  }
+
+  fetchGames = async () => {
     try {
       const games = await Api.fetchGames();
       this.setState({ loading: false, games });
@@ -53,7 +58,7 @@ export default class GameListScreen extends PureComponent {
   };
 
   render() {
-    const { loading, games, error } = this.state;
+    const { loading, games, error, isAddGameScreenVisible } = this.state;
 
     if (loading) {
       return (
@@ -73,7 +78,10 @@ export default class GameListScreen extends PureComponent {
 
     return (
       <SafeAreaView style={ContainerStyles.full}>
-        <Button title="Add new game" onPress={() => this.showAddGameScreen()} />
+        <Button
+          title="Add new game"
+          onPress={() => this.toggleAddGameScreen()}
+        />
         <FlatList
           style={ContainerStyles.list}
           data={games}
@@ -81,15 +89,22 @@ export default class GameListScreen extends PureComponent {
           keyExtractor={extractKey}
         />
         <AddGameScreen
-          isVisible={false}
-          onRef={ref => (this.addGameScreen = ref)}
+          isVisible={isAddGameScreenVisible}
+          onClose={() => this.didCloseAddGameScreen()}
         />
       </SafeAreaView>
     );
   }
 
-  showAddGameScreen() {
-    this.addGameScreen.toggleVisible();
+  didCloseAddGameScreen() {
+    this.fetchGames();
+    this.toggleAddGameScreen();
+  }
+
+  toggleAddGameScreen() {
+    this.setState({
+      isAddGameScreenVisible: !this.state.isAddGameScreenVisible
+    });
   }
 }
 
