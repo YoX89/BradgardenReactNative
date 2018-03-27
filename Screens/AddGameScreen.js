@@ -22,7 +22,6 @@ export default class AddGameScreen extends Component {
     super(props);
     this.state = {
       loading: false,
-      error: false,
       hasTraitor: false,
       isCoop: false,
       error: null
@@ -42,7 +41,7 @@ export default class AddGameScreen extends Component {
               onRef={ref => (this.nameInput = ref)}
             />
             <Input
-              placeholder="Number of players"
+              placeholder="Maximum number of players"
               numeric={true}
               onRef={ref => (this.numberOfPlayersInput = ref)}
             />
