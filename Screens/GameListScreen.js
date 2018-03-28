@@ -6,7 +6,8 @@ import {
   FlatList,
   Text,
   ActivityIndicator,
-  Image
+  Image,
+  Alert
 } from "react-native";
 import { ContainerStyles } from "./Styles/ContainerStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
@@ -16,6 +17,7 @@ import ListItem from "../Components/ListItem";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
 import Api from "../Networking/Api";
+import DropdownAlert from "react-native-dropdownalert";
 
 const extractKey = ({ id }) => id;
 
@@ -54,12 +56,62 @@ export default class GameListScreen extends PureComponent {
     }
   };
 
+  presentDeleteGameAlert = game => {
+    Alert.alert(
+      "Delete " + game.name + "?",
+      null,
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Delete",
+          onPress: () => this.deleteGame(game),
+          style: "destructive"
+        }
+      ],
+      null
+    );
+  };
+
+  deleteGame = async game => {
+    this.setState({ loading: true });
+    try {
+      const success = await Api.deleteGame(game.id);
+      this.setState({ loading: false });
+
+      if (success) {
+        this.dropdown.alertWithType("success", game.name + " was deleted", "");
+      } else {
+        this.dropdown.alertWithType(
+          "error",
+          "Server error",
+          "Something went wrong, please try again."
+        );
+      }
+    } catch (e) {
+      this.setState({ loading: false });
+      this.dropdown.alertWithType(
+        "error",
+        "Network error",
+        "Make sure you are connected to the internet."
+      );
+    }
+  };
+
   onRefresh = () => {
     this.fetchGames(true);
   };
 
   renderGame = ({ item }) => {
-    return <ListItem text={item.name} />;
+    return (
+      <ListItem
+        text={item.name}
+        onPressItem={this.presentDeleteGameAlert}
+        data={item}
+      />
+    );
   };
 
   render() {
@@ -91,6 +143,7 @@ export default class GameListScreen extends PureComponent {
           isVisible={isAddGameScreenVisible}
           onClose={() => this.didCloseAddGameScreen()}
         />
+        <DropdownAlert ref={ref => (this.dropdown = ref)} />
       </SafeAreaView>
     );
   }

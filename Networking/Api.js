@@ -76,4 +76,12 @@ export default class Api {
     Api.sessions = null;
     return response.ok;
   };
+
+  static deleteGame = async id => {
+    const response = await fetch(baseURL + "/games/" + id, {
+      method: "DELETE"
+    });
+    Api.games = null;
+    return response.ok;
+  };
 }
