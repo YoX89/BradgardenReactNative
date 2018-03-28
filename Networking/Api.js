@@ -8,8 +8,8 @@ export default class Api {
   static games = null;
   static sessions = null;
 
-  static fetchGames = async () => {
-    if (Api.games != null) {
+  static fetchGames = async force => {
+    if (Api.games != null && !force) {
       return Api.games;
     }
 

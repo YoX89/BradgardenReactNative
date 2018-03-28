@@ -41,16 +41,21 @@ export default class GameListScreen extends PureComponent {
   };
 
   componentDidMount() {
-    this.fetchGames();
+    this.fetchGames(false);
   }
 
-  fetchGames = async () => {
+  fetchGames = async force => {
+    this.setState({ loading: true });
     try {
-      const games = await Api.fetchGames();
+      const games = await Api.fetchGames(force);
       this.setState({ loading: false, games });
     } catch (e) {
       this.setState({ loading: false, error: true });
     }
+  };
+
+  onRefresh = () => {
+    this.fetchGames(true);
   };
 
   renderGame = ({ item }) => {
@@ -59,14 +64,6 @@ export default class GameListScreen extends PureComponent {
 
   render() {
     const { loading, games, error, isAddGameScreenVisible } = this.state;
-
-    if (loading) {
-      return (
-        <View style={ContainerStyles.center}>
-          <ActivityIndicator animating={true} />
-        </View>
-      );
-    }
 
     if (error) {
       return (
@@ -87,6 +84,8 @@ export default class GameListScreen extends PureComponent {
           data={games}
           renderItem={this.renderGame}
           keyExtractor={extractKey}
+          onRefresh={this.onRefresh}
+          refreshing={loading}
         />
         <AddGameScreen
           isVisible={isAddGameScreenVisible}
