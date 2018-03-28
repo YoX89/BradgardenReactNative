@@ -4,8 +4,9 @@ import { ComponentStyles } from "./Styles/ComponentStyles";
 
 export default class ListItem extends React.PureComponent {
   onPress = () => {
-    if (!!this.props.onPressItem) {
-      this.props.onPressItem(this.props.id);
+    const { onPressItem, data } = this.props;
+    if (!!onPressItem) {
+      onPressItem(data);
     }
   };
 

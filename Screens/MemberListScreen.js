@@ -11,6 +11,7 @@ import { ContainerStyles } from "./Styles/ContainerStyles";
 import { ButtonStyles } from "./Styles/ButtonStyles";
 import ListItem from "../Components/ListItem";
 import Api from "../Networking/Api";
+import MemberDetailsScreen from "./MemberDetailsScreen";
 
 const extractKey = ({ id }) => id;
 
@@ -20,7 +21,8 @@ export default class MemberListScreen extends PureComponent {
     this.state = {
       loading: true,
       error: false,
-      members: []
+      members: [],
+      selectedMember: null
     };
   }
 
@@ -43,12 +45,26 @@ export default class MemberListScreen extends PureComponent {
     }
   };
 
+  onPressMember = member => {
+    this.setState({ selectedMember: member });
+  };
+
+  onPressClose = () => {
+    this.setState({ selectedMember: null });
+  };
+
   renderMember = ({ item }) => {
-    return <ListItem text={item.firstName + " " + item.lastName} />;
+    return (
+      <ListItem
+        text={item.firstName + " " + item.lastName}
+        onPressItem={this.onPressMember}
+        data={item}
+      />
+    );
   };
 
   render() {
-    const { loading, members, error } = this.state;
+    const { loading, members, error, selectedMember } = this.state;
 
     if (loading) {
       return (
@@ -67,13 +83,21 @@ export default class MemberListScreen extends PureComponent {
     }
 
     return (
-      <FlatList
-        style={ContainerStyles.full}
-        data={members}
-        renderItem={this.renderMember}
-        keyExtractor={extractKey}
-        contentInsetAdjustmentBehavior={"automatic"}
-      />
+      <View style={ContainerStyles.full}>
+        <FlatList
+          style={ContainerStyles.full}
+          data={members}
+          extraData={this.state}
+          renderItem={this.renderMember}
+          keyExtractor={extractKey}
+          contentInsetAdjustmentBehavior={"automatic"}
+        />
+        <MemberDetailsScreen
+          isVisible={!!selectedMember}
+          onPressClose={this.onPressClose}
+          member={selectedMember}
+        />
+      </View>
     );
   }
 }
