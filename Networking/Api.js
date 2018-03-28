@@ -19,8 +19,8 @@ export default class Api {
     return games;
   };
 
-  static fetchMembers = async () => {
-    if (Api.members != null) {
+  static fetchMembers = async force => {
+    if (Api.members != null && !force) {
       return Api.members;
     }
 

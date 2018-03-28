@@ -36,9 +36,14 @@ export default class MemberListScreen extends PureComponent {
     )
   };
 
-  componentWillMount = async () => {
+  componentWillMount() {
+    this.fetchMembers(false);
+  }
+
+  fetchMembers = async force => {
+    this.setState({ loading: true });
     try {
-      const members = await Api.fetchMembers();
+      const members = await Api.fetchMembers(force);
       this.setState({ loading: false, members });
     } catch (e) {
       this.setState({ loading: false, error: true });
@@ -53,6 +58,10 @@ export default class MemberListScreen extends PureComponent {
     this.setState({ selectedMember: null });
   };
 
+  onRefresh = async () => {
+    this.fetchMembers(true);
+  };
+
   renderMember = ({ item }) => {
     return (
       <ListItem
@@ -65,14 +74,6 @@ export default class MemberListScreen extends PureComponent {
 
   render() {
     const { loading, members, error, selectedMember } = this.state;
-
-    if (loading) {
-      return (
-        <View style={ContainerStyles.center}>
-          <ActivityIndicator animating={true} />
-        </View>
-      );
-    }
 
     if (error) {
       return (
@@ -91,6 +92,8 @@ export default class MemberListScreen extends PureComponent {
           renderItem={this.renderMember}
           keyExtractor={extractKey}
           contentInsetAdjustmentBehavior={"automatic"}
+          onRefresh={this.onRefresh}
+          refreshing={loading}
         />
         <MemberDetailsScreen
           isVisible={!!selectedMember}
