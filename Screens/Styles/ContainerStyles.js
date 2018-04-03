@@ -16,5 +16,8 @@ export const ContainerStyles = StyleSheet.create({
     borderColor: Colors.primary,
     borderWidth: 1,
     backgroundColor: Colors.background
+  },
+  scrollView: {
+    alignItems: "flex-start"
   }
 });

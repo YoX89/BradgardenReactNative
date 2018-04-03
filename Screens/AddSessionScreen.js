@@ -14,6 +14,7 @@ import Picker from "../Components/Picker";
 import { ComponentStyles } from "../Components/Styles/ComponentStyles";
 import Api from "../Networking/Api";
 import SelectionScreen from "./SelectionScreen";
+import SessionListScreen from "./SessionListScreen";
 import DropdownAlert from "react-native-dropdownalert";
 
 export default class AddSessionScreen extends Component {
@@ -25,7 +26,8 @@ export default class AddSessionScreen extends Component {
       selectedWinners: null,
       selectedLosers: null,
       selectedTraitors: null,
-      isModalVisible: false,
+      isSelectionScreenVisible: false,
+      isSessionListVisible: false,
       selectables: [],
       selectMultiple: false,
       selectedIds: [],
@@ -50,7 +52,8 @@ export default class AddSessionScreen extends Component {
       selectedWinners,
       selectedLosers,
       selectedTraitors,
-      isModalVisible,
+      isSelectionScreenVisible,
+      isSessionListVisible,
       selectables,
       selectMultiple,
       selectedIds,
@@ -62,6 +65,10 @@ export default class AddSessionScreen extends Component {
     return (
       <View style={ContainerStyles.full}>
         <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
+          <Button
+            title="Previous sessions"
+            onPress={() => this.setState({ isSessionListVisible: true })}
+          />
           <Picker
             selected={selectedGames}
             placeholder="Choose game"
@@ -86,14 +93,18 @@ export default class AddSessionScreen extends Component {
           )}
           <Button title="Add session" onPress={() => this.addSession()} />
           {loading && <ActivityIndicator size="large" />}
-          <SelectionScreen
-            isVisible={isModalVisible}
-            selectables={selectables}
-            onPressDone={onPressDone}
-            selectedIds={selectedIds}
-            selectMultiple={selectMultiple}
-          />
         </ScrollView>
+        <SelectionScreen
+          isVisible={isSelectionScreenVisible}
+          selectables={selectables}
+          onPressDone={onPressDone}
+          selectedIds={selectedIds}
+          selectMultiple={selectMultiple}
+        />
+        <SessionListScreen
+          isVisible={isSessionListVisible}
+          onClose={() => this.setState({ isSessionListVisible: false })}
+        />
         <DropdownAlert ref={ref => (this.dropdown = ref)} />
       </View>
     );
@@ -153,7 +164,9 @@ export default class AddSessionScreen extends Component {
   };
 
   toggleModalVisible() {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({
+      isSelectionScreenVisible: !this.state.isSelectionScreenVisible
+    });
   }
 
   didSelectGame = gameArray => {

@@ -30,6 +30,17 @@ export default class Api {
     return members;
   };
 
+  static fetchSessions = async force => {
+    if (Api.sessions != null && !force) {
+      return Api.sessions;
+    }
+
+    const response = await fetch(baseURL + "/sessions");
+    const sessions = await response.json();
+    Api.sessions = sessions;
+    return sessions;
+  };
+
   static addGame = async (name, numberOfPlayers, hasTraitor, isCoop) => {
     const body = JSON.stringify({
       name: name,
