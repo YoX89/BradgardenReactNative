@@ -72,7 +72,6 @@ export default class SelectionScreen extends PureComponent {
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.full}>
           <View style={ContainerStyles.modal}>
-            <Button title="Done" onPress={this.onPressDone} />
             <FlatList
               style={ContainerStyles.full}
               data={selectables}
@@ -80,6 +79,7 @@ export default class SelectionScreen extends PureComponent {
               renderItem={this.renderSelectable}
               keyExtractor={extractKey}
             />
+            <Button title="Done" onPress={this.onPressDone} />
           </View>
         </SafeAreaView>
       </Modal>
