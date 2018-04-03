@@ -26,10 +26,12 @@ export default class SessionListScreen extends PureComponent {
 
   componentDidMount() {
     this.fetchSessions();
+    this.fetchGames();
   }
 
   onRefresh = async () => {
     this.fetchSessions(true);
+    this.fetchGames(true);
   };
 
   fetchSessions = async force => {
@@ -42,8 +44,26 @@ export default class SessionListScreen extends PureComponent {
     }
   };
 
+  fetchGames = async force => {
+    try {
+      const games = await Api.fetchGames(force);
+      this.setState({ games });
+    } catch (e) {}
+  };
+
   renderSession = ({ item }) => {
-    return <ListItem text={item.date} data={item} />;
+    const { games } = this.state;
+    var text = item.date.split(" ")[0];
+    if (games) {
+      const { gameID } = item;
+      const foundGame = games.find(function(game) {
+        return game.id === gameID;
+      });
+      if (foundGame) {
+        text += " - " + foundGame.name;
+      }
+    }
+    return <ListItem text={text} data={item} />;
   };
 
   render() {
