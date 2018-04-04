@@ -5,6 +5,9 @@
     "version": "1.0.0",
     "slug": "bradgarden",
     "sdkVersion": "25.0.0",
+    "splash": {
+      "backgroundColor": "#143A4D"
+    },
     "ios": {
       "bundleIdentifier": "se.bradgarden.statistics"
     },
