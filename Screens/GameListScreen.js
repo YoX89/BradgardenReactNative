@@ -36,7 +36,7 @@ export default class GameListScreen extends PureComponent {
     tabBarLabel: "Games",
     tabBarIcon: ({ tintColor }) => (
       <Image
-        source={require("../Images/user.png")}
+        source={require("../Images/board_game.png")}
         style={[ButtonStyles.tabIcon, { tintColor: tintColor }]}
       />
     )

@@ -39,7 +39,7 @@ export default class AddSessionScreen extends Component {
     tabBarLabel: "Add session",
     tabBarIcon: ({ tintColor }) => (
       <Image
-        source={require("../Images/user.png")}
+        source={require("../Images/add_session.png")}
         style={[ButtonStyles.tabIcon, { tintColor: tintColor }]}
       />
     )
