@@ -9,7 +9,8 @@
       "bundleIdentifier": "se.bradgarden.statistics"
     },
     "android": {
-      "package": "se.bradgarden.statistics"
+      "package": "se.bradgarden.statistics",
+      "versionCode": 2
     }
   }
 }
