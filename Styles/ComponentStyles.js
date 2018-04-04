@@ -51,19 +51,19 @@ export const ComponentStyles = StyleSheet.create({
     backgroundColor: Colors.secondary
   },
   pickerPlaceholderText: {
-    color: Colors.primary,
-    fontWeight: "500",
-    fontSize: 18
+    color: Colors.black,
+    fontWeight: "300",
+    fontSize: 16
   },
   pickerFloatingText: {
     color: Colors.primary,
     marginBottom: 4,
-    fontWeight: "500",
-    fontSize: 18
+    fontWeight: "300",
+    fontSize: 16
   },
   pickerText: {
-    color: Colors.black,
-    fontSize: 14
+    color: Colors.primary,
+    fontSize: 16
   },
   errorWrapper: {
     backgroundColor: Colors.error,
