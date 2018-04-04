@@ -1,9 +1,9 @@
 {
-  "name": "BradgardenReactNative",
-  "version": "0.1.0",
+  "name": "Bradgarden",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "jest-expo": "23.0.0",
+    "jest-expo": "^25.0.0",
     "react-native-scripts": "1.9.0",
     "react-test-renderer": "16.0.0"
   },
@@ -19,9 +19,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^23.0.4",
-    "react": "16.0.0",
-    "react-native": "0.50.3",
+    "expo": "^25.0.0",
+    "react": "16.2.0",
+    "react-native":
+      "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "react-native-dropdownalert": "^3.3.0",
     "react-native-modal": "^5.0.0",
     "react-navigation": "^1.0.0-beta.27"
