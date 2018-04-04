@@ -6,8 +6,8 @@ import {
   SafeAreaView,
   ScrollView
 } from "react-native";
-import { ContainerStyles } from "./Styles/ContainerStyles";
-import { TextStyles } from "./Styles/TextStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
+import { TextStyles } from "../Styles/TextStyles";
 import Button from "../Components/Button";
 import Modal from "react-native-modal";
 

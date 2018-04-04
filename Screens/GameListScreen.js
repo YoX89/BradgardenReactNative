@@ -9,8 +9,8 @@ import {
   Image,
   Alert
 } from "react-native";
-import { ContainerStyles } from "./Styles/ContainerStyles";
-import { ButtonStyles } from "./Styles/ButtonStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
+import { ButtonStyles } from "../Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
 import Button from "../Components/Button";
 import ListItem from "../Components/ListItem";

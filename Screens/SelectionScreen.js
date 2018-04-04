@@ -10,7 +10,7 @@ import {
 import Modal from "react-native-modal";
 import Button from "../Components/Button";
 import SelectableItem from "../Components/SelectableItem";
-import { ContainerStyles } from "./Styles/ContainerStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
 
 const extractKey = ({ id }) => id;
 

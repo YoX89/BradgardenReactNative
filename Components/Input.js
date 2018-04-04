@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { TextInput, View } from "react-native";
 import { Colors } from "../Styles/Colors";
-import { ComponentStyles } from "./Styles/ComponentStyles";
+import { ComponentStyles } from "../Styles/ComponentStyles";
 
 export default class Input extends Component {
   constructor(props) {

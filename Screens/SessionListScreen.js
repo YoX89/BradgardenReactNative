@@ -8,7 +8,7 @@ import {
   SafeAreaView
 } from "react-native";
 import Modal from "react-native-modal";
-import { ContainerStyles } from "./Styles/ContainerStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
 import ListItem from "../Components/ListItem";
 import Button from "../Components/Button";
 import Api from "../Networking/Api";

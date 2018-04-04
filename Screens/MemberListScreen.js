@@ -7,8 +7,8 @@ import {
   ActivityIndicator,
   Image
 } from "react-native";
-import { ContainerStyles } from "./Styles/ContainerStyles";
-import { ButtonStyles } from "./Styles/ButtonStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
+import { ButtonStyles } from "../Styles/ButtonStyles";
 import ListItem from "../Components/ListItem";
 import Api from "../Networking/Api";
 import MemberDetailsScreen from "./MemberDetailsScreen";

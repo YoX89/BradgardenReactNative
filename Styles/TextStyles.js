@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "../../Styles/Colors";
+import { Colors } from "./Colors";
 
 export const TextStyles = StyleSheet.create({
   memberTitle: {

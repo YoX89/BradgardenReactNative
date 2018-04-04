@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { ComponentStyles } from "./Styles/ComponentStyles";
+import { ComponentStyles } from "../Styles/ComponentStyles";
 
 export default class ListItem extends React.PureComponent {
   onPress = () => {

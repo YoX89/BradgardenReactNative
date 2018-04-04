@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import { ComponentStyles } from "./Styles/ComponentStyles";
+import { ComponentStyles } from "../Styles/ComponentStyles";
 
 export default class Button extends Component {
   render() {

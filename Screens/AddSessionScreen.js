@@ -7,11 +7,10 @@ import {
   Image,
   ScrollView
 } from "react-native";
-import { ContainerStyles } from "./Styles/ContainerStyles";
-import { ButtonStyles } from "./Styles/ButtonStyles";
+import { ContainerStyles } from "../Styles/ContainerStyles";
+import { ButtonStyles } from "../Styles/ButtonStyles";
 import Button from "../Components/Button";
 import Picker from "../Components/Picker";
-import { ComponentStyles } from "../Components/Styles/ComponentStyles";
 import Api from "../Networking/Api";
 import SelectionScreen from "./SelectionScreen";
 import SessionListScreen from "./SessionListScreen";
