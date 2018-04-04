@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { ButtonStyles } from "../Styles/ButtonStyles";
+import { Colors } from "../Styles/Colors";
 import Button from "../Components/Button";
 import Picker from "../Components/Picker";
 import Api from "../Networking/Api";
@@ -20,7 +21,8 @@ export default class AddSessionScreen extends Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
+      addingSession: false,
+      loadingSelectables: false,
       selectedGame: null,
       selectedWinners: null,
       selectedLosers: null,
@@ -29,8 +31,7 @@ export default class AddSessionScreen extends Component {
       isSessionListVisible: false,
       selectables: [],
       selectMultiple: false,
-      selectedIds: [],
-      loading: false
+      selectedIds: []
     };
   }
 
@@ -46,7 +47,8 @@ export default class AddSessionScreen extends Component {
 
   render() {
     const {
-      loading,
+      addingSession,
+      loadingSelectables,
       selectedGame,
       selectedWinners,
       selectedLosers,
@@ -91,7 +93,6 @@ export default class AddSessionScreen extends Component {
             />
           )}
           <Button title="Add session" onPress={() => this.addSession()} />
-          {loading && <ActivityIndicator size="large" />}
         </ScrollView>
         <SelectionScreen
           isVisible={isSelectionScreenVisible}
@@ -105,6 +106,13 @@ export default class AddSessionScreen extends Component {
           onClose={() => this.setState({ isSessionListVisible: false })}
         />
         <DropdownAlert ref={ref => (this.dropdown = ref)} />
+        {(loadingSelectables || addingSession) && (
+          <ActivityIndicator
+            style={ContainerStyles.centerLoading}
+            size="large"
+            color={Colors.primary}
+          />
+        )}
       </View>
     );
   }
@@ -122,7 +130,7 @@ export default class AddSessionScreen extends Component {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({ addingSession: true });
     try {
       const success = await Api.addSession(
         selectedGame,
@@ -137,7 +145,7 @@ export default class AddSessionScreen extends Component {
           selectedWinners: null,
           selectedLosers: null,
           selectedTraitors: null,
-          loading: false
+          addingSession: false
         });
         this.dropdown.alertWithType(
           "success",
@@ -145,7 +153,7 @@ export default class AddSessionScreen extends Component {
           ""
         );
       } else {
-        this.setState({ loading: false });
+        this.setState({ addingSession: false });
         this.dropdown.alertWithType(
           "error",
           "Error adding session",
@@ -153,7 +161,7 @@ export default class AddSessionScreen extends Component {
         );
       }
     } catch (e) {
-      this.setState({ loading: false });
+      this.setState({ addingSession: false });
       this.dropdown.alertWithType(
         "error",
         "Error adding session",
@@ -176,6 +184,7 @@ export default class AddSessionScreen extends Component {
 
   chooseGameAction = async () => {
     const { selectedGame } = this.state;
+    this.setState({ isLoadingSelectables: true });
     try {
       var games = await Api.fetchGames();
       games = games.map(game => {
@@ -184,6 +193,7 @@ export default class AddSessionScreen extends Component {
       });
       const selectedIds = selectedGame ? [selectedGame.id] : [];
       this.setState({
+        isLoadingSelectables: false,
         selectables: games,
         selectMultiple: false,
         selectedIds: selectedIds,
@@ -191,6 +201,7 @@ export default class AddSessionScreen extends Component {
       });
       this.toggleModalVisible();
     } catch (e) {
+      this.setState({ isLoadingSelectables: false });
       this.dropdown.alertWithType(
         "error",
         "Error fetching games",
@@ -230,6 +241,7 @@ export default class AddSessionScreen extends Component {
   };
 
   openMemberSelection = async (selectedMembers, onPressDone) => {
+    this.setState({ isLoadingSelectables: false });
     try {
       var members = await Api.fetchMembers();
       members = members.map(member => {
@@ -240,6 +252,7 @@ export default class AddSessionScreen extends Component {
         ? selectedMembers.map(member => member.id)
         : [];
       this.setState({
+        isLoadingSelectables: false,
         selectables: members,
         selectMultiple: true,
         selectedIds: selectedIds,
@@ -247,6 +260,7 @@ export default class AddSessionScreen extends Component {
       });
       this.toggleModalVisible();
     } catch (e) {
+      this.setState({ isLoadingSelectables: false });
       this.dropdown.alertWithType(
         "error",
         "Error fetching members",
