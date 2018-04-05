@@ -25,5 +25,28 @@ export const ContainerStyles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center"
+  },
+  profileHeader: {
+    height: 200,
+    alignItems: "stretch",
+    elevation: 8,
+    backgroundColor: Colors.background,
+    shadowColor: Colors.black,
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 }
+  },
+  profileHeaderOuterWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginLeft: 30,
+    marginRight: 30
+  },
+  profileHeaderInnerWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

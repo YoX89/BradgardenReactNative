@@ -81,5 +81,15 @@ export const ComponentStyles = StyleSheet.create({
   errorMessage: {
     color: Colors.primary,
     fontSize: 16
+  },
+  profileHeaderContext: {
+    color: Colors.primary,
+    fontSize: 14,
+    fontWeight: "500"
+  },
+  profileHeaderDetails: {
+    color: Colors.primary,
+    fontSize: 14,
+    fontWeight: "300"
   }
 });

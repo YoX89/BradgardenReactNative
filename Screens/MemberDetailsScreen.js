@@ -9,6 +9,7 @@ import {
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { TextStyles } from "../Styles/TextStyles";
 import Button from "../Components/Button";
+import ProfileHeader from "../Components/ProfileHeader";
 import Modal from "react-native-modal";
 
 export default class MemberDetailsScreen extends Component {
@@ -23,14 +24,12 @@ export default class MemberDetailsScreen extends Component {
         <SafeAreaView style={ContainerStyles.full}>
           {member && (
             <ScrollView style={ContainerStyles.modal}>
-              <Text style={TextStyles.memberTitle}>{this.title()}</Text>
-              <Text style={TextStyles.memberDetails}>
-                {this.gamesPlayedText()}
-              </Text>
-              <Text style={TextStyles.memberDetails}>
-                {this.winRatioText()}
-              </Text>
-              <Text style={TextStyles.memberDetails}>{this.traitorText()}</Text>
+              <ProfileHeader
+                name={this.title()}
+                traitor={this.traitorText()}
+                gamesPlayed={this.gamesPlayedText()}
+                winRate={this.winRatioText()}
+              />
               <Button title="Close" onPress={onPressClose} />
             </ScrollView>
           )}
@@ -45,20 +44,13 @@ export default class MemberDetailsScreen extends Component {
   }
 
   gamesPlayedText() {
-    const { gamesPlayed } = this.props.member;
-    if (gamesPlayed === 0) {
-      return "No played games";
-    } else if (gamesPlayed === 1) {
-      return "One game played";
-    } else {
-      return gamesPlayed + " games played";
-    }
+    return this.props.member.gamesPlayed;
   }
 
   winRatioText() {
     const { winRatio } = this.props.member;
     if (winRatio && winRatio != "NaN") {
-      return winRatio * 100 + "% wins";
+      return (winRatio * 100).toFixed(2) + "% wins";
     }
     return "0% wins";
   }

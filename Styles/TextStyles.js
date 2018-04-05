@@ -11,7 +11,8 @@ export const TextStyles = StyleSheet.create({
   memberDetails: {
     color: Colors.primary,
     backgroundColor: "transparent",
-    fontSize: 18,
-    padding: 10
+    fontSize: 14,
+    paddingLeft: 10,
+    paddingRight: 10
   }
 });
