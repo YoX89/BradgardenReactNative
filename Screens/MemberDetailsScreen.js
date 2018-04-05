@@ -21,9 +21,9 @@ export default class MemberDetailsScreen extends Component {
     const { isVisible, onPressClose, member } = this.props;
     return (
       <Modal isVisible={isVisible}>
-        <SafeAreaView style={ContainerStyles.full}>
+        <SafeAreaView style={ContainerStyles.centerWrap}>
           {member && (
-            <ScrollView style={ContainerStyles.modal}>
+            <ScrollView style={ContainerStyles.modalWrap}>
               <ProfileHeader
                 name={this.title()}
                 traitor={this.traitorText()}

@@ -7,11 +7,21 @@ export const ContainerStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  centerWrap: {
+    justifyContent: "center",
+    alignItems: "stretch"
+  },
   full: {
     flex: 1
   },
   modal: {
     flex: 1,
+    borderRadius: 4,
+    borderColor: Colors.primary,
+    borderWidth: 1,
+    backgroundColor: Colors.background
+  },
+  modalWrap: {
     borderRadius: 4,
     borderColor: Colors.primary,
     borderWidth: 1,
