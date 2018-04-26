@@ -45,6 +45,21 @@ const GamesTab = StackNavigator(
   }
 );
 
+const MembersTab = StackNavigator(
+  {
+    MemberList: {
+      screen: MemberListScreen,
+      navigationOptions: {
+        title: "Members"
+      }
+    }
+  },
+  {
+    navigationOptions: NavigationStyles.navigationOptions,
+    cardStyle: NavigationStyles.cardStyle
+  }
+);
+
 export const Tabs = TabNavigator(
   {
     Sessions: {
@@ -63,7 +78,7 @@ export const Tabs = TabNavigator(
       screen: GamesTab
     },
     Members: {
-      screen: MemberListScreen
+      screen: MembersTab
     }
   },
   {
