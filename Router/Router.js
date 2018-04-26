@@ -6,6 +6,7 @@ import AddSessionScreen from "../Screens/AddSessionScreen";
 import SessionListScreen from "../Screens/SessionListScreen";
 import { Colors } from "../Styles/Colors";
 import { ButtonStyles } from "../Styles/ButtonStyles";
+import { NavigationStyles } from "../Styles/NavigationStyles";
 import { Image } from "react-native";
 
 const SessionsTab = StackNavigator(
@@ -24,15 +25,23 @@ const SessionsTab = StackNavigator(
     }
   },
   {
-    navigationOptions: {
-      headerTintColor: Colors.primary,
-      headerStyle: {
-        backgroundColor: Colors.bar
+    navigationOptions: NavigationStyles.navigationOptions,
+    cardStyle: NavigationStyles.cardStyle
+  }
+);
+
+const GamesTab = StackNavigator(
+  {
+    GameList: {
+      screen: GameListScreen,
+      navigationOptions: {
+        title: "Games"
       }
-    },
-    cardStyle: {
-      backgroundColor: Colors.background
     }
+  },
+  {
+    navigationOptions: NavigationStyles.navigationOptions,
+    cardStyle: NavigationStyles.cardStyle
   }
 );
 
@@ -51,23 +60,14 @@ export const Tabs = TabNavigator(
       }
     },
     Games: {
-      screen: GameListScreen
+      screen: GamesTab
     },
     Members: {
       screen: MemberListScreen
     }
   },
   {
-    tabBarOptions: {
-      activeTintColor: Colors.primary,
-      inactiveTintColor: Colors.black,
-      indicatorStyle: {
-        backgroundColor: Colors.primary
-      },
-      style: {
-        backgroundColor: Colors.bar
-      }
-    },
+    tabBarOptions: NavigationStyles.tabBarOptions,
     tabBarComponent: TabBarBottom,
     tabBarPosition: "bottom",
     swipeEnabled: true
