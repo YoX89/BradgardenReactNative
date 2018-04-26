@@ -4,7 +4,7 @@
     "icon": "./Images/icon.png",
     "version": "1.0.0",
     "slug": "bradgarden",
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "27.0.0",
     "splash": {
       "backgroundColor": "#143A4D"
     },

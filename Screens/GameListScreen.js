@@ -19,7 +19,7 @@ import AddGameScreen from "./AddGameScreen";
 import Api from "../Networking/Api";
 import DropdownAlert from "react-native-dropdownalert";
 
-const extractKey = ({ id }) => id;
+const extractKey = ({ id }) => id.toString();
 
 export default class GameListScreen extends PureComponent {
   constructor() {

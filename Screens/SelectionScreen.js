@@ -12,7 +12,7 @@ import Button from "../Components/Button";
 import SelectableItem from "../Components/SelectableItem";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 
-const extractKey = ({ id }) => id;
+const extractKey = ({ id }) => id.toString();
 
 export default class SelectionScreen extends PureComponent {
   constructor(props) {

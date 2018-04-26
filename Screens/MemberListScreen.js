@@ -13,7 +13,7 @@ import ListItem from "../Components/ListItem";
 import Api from "../Networking/Api";
 import MemberDetailsScreen from "./MemberDetailsScreen";
 
-const extractKey = ({ id }) => id;
+const extractKey = ({ id }) => id.toString();
 
 export default class MemberListScreen extends PureComponent {
   constructor() {

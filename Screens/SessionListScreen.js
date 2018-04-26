@@ -13,7 +13,7 @@ import ListItem from "../Components/ListItem";
 import Button from "../Components/Button";
 import Api from "../Networking/Api";
 
-const extractKey = ({ id }) => id;
+const extractKey = ({ id }) => id.toString();
 
 export default class SessionListScreen extends PureComponent {
   constructor() {
