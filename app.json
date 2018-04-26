@@ -13,7 +13,7 @@
     },
     "android": {
       "package": "se.bradgarden.statistics",
-      "versionCode": 2
+      "versionCode": 3
     }
   }
 }
