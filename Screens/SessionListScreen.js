@@ -4,13 +4,10 @@ import {
   View,
   FlatList,
   Text,
-  ActivityIndicator,
-  SafeAreaView
+  ActivityIndicator
 } from "react-native";
-import Modal from "react-native-modal";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import ListItem from "../Components/ListItem";
-import Button from "../Components/Button";
 import Api from "../Networking/Api";
 
 const extractKey = ({ id }) => id.toString();
@@ -68,7 +65,6 @@ export default class SessionListScreen extends PureComponent {
 
   render() {
     const { loading, sessions, error } = this.state;
-    const { isVisible, onClose } = this.props;
 
     if (error) {
       return (
@@ -79,21 +75,14 @@ export default class SessionListScreen extends PureComponent {
     }
 
     return (
-      <Modal isVisible={isVisible}>
-        <SafeAreaView style={ContainerStyles.full}>
-          <View style={ContainerStyles.modal}>
-            <FlatList
-              style={ContainerStyles.full}
-              data={sessions}
-              renderItem={this.renderSession}
-              keyExtractor={extractKey}
-              refreshing={loading}
-              onRefresh={this.onRefresh}
-            />
-            <Button title="Close" onPress={onClose} />
-          </View>
-        </SafeAreaView>
-      </Modal>
+      <FlatList
+        style={ContainerStyles.full}
+        data={sessions}
+        renderItem={this.renderSession}
+        keyExtractor={extractKey}
+        refreshing={loading}
+        onRefresh={this.onRefresh}
+      />
     );
   }
 }

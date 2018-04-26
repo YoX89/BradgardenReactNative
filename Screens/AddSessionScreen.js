@@ -28,22 +28,11 @@ export default class AddSessionScreen extends Component {
       selectedLosers: null,
       selectedTraitors: null,
       isSelectionScreenVisible: false,
-      isSessionListVisible: false,
       selectables: [],
       selectMultiple: false,
       selectedIds: []
     };
   }
-
-  static navigationOptions = {
-    tabBarLabel: "Add session",
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={require("../Images/add_session.png")}
-        style={[ButtonStyles.tabIcon, { tintColor: tintColor }]}
-      />
-    )
-  };
 
   render() {
     const {
@@ -54,7 +43,6 @@ export default class AddSessionScreen extends Component {
       selectedLosers,
       selectedTraitors,
       isSelectionScreenVisible,
-      isSessionListVisible,
       selectables,
       selectMultiple,
       selectedIds,
@@ -68,7 +56,7 @@ export default class AddSessionScreen extends Component {
         <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
           <Button
             title="Previous sessions"
-            onPress={() => this.setState({ isSessionListVisible: true })}
+            onPress={() => this.props.navigation.navigate("SessionList")}
           />
           <Picker
             selected={selectedGames}
@@ -100,10 +88,6 @@ export default class AddSessionScreen extends Component {
           onPressDone={onPressDone}
           selectedIds={selectedIds}
           selectMultiple={selectMultiple}
-        />
-        <SessionListScreen
-          isVisible={isSessionListVisible}
-          onClose={() => this.setState({ isSessionListVisible: false })}
         />
         <DropdownAlert ref={ref => (this.dropdown = ref)} />
         {(loadingSelectables || addingSession) && (
