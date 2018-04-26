@@ -33,8 +33,8 @@ export default class AddGameScreen extends Component {
     const { hasTraitor, isCoop, loading, error } = this.state;
     return (
       <Modal isVisible={isVisible}>
-        <SafeAreaView style={ContainerStyles.full}>
-          <ScrollView style={ContainerStyles.modal}>
+        <SafeAreaView style={ContainerStyles.centerWrap}>
+          <ScrollView style={ContainerStyles.modalWrap}>
             {error && <ErrorView title={error.title} message={error.message} />}
             <Input
               placeholder="Name of the game"
