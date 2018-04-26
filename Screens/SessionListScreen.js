@@ -7,6 +7,7 @@ import {
   ActivityIndicator
 } from "react-native";
 import { ContainerStyles } from "../Styles/ContainerStyles";
+import DetailedSessionScreen from "./DetailedSessionScreen";
 import ListItem from "../Components/ListItem";
 import Api from "../Networking/Api";
 
@@ -17,7 +18,8 @@ export default class SessionListScreen extends PureComponent {
     super();
     this.state = {
       loading: true,
-      error: false
+      error: false,
+      detailedSessionVisible: false
     };
   }
 
@@ -48,23 +50,48 @@ export default class SessionListScreen extends PureComponent {
     } catch (e) {}
   };
 
+  findGameForId(id) {
+    const { games } = this.state;
+    var game = null;
+    if (games) {
+      game = games.find(function(game) {
+        return game.id === id;
+      });
+    }
+
+    return game;
+  }
+
+  onPressSession = session => {
+    const game = this.findGameForId(session.gameID);
+    this.setState({
+      detailedSessionVisible: !this.state.detailedSessionVisible,
+      selectedSession: session,
+      selectedGame: game
+    });
+  };
+
   renderSession = ({ item }) => {
     const { games } = this.state;
     var text = item.date.split(" ")[0];
-    if (games) {
-      const { gameID } = item;
-      const foundGame = games.find(function(game) {
-        return game.id === gameID;
-      });
-      if (foundGame) {
-        text += " - " + foundGame.name;
-      }
+    const game = this.findGameForId(item.gameID);
+    if (game) {
+      text += " - " + game.name;
     }
-    return <ListItem text={text} data={item} />;
+    return (
+      <ListItem text={text} data={item} onPressItem={this.onPressSession} />
+    );
   };
 
   render() {
-    const { loading, sessions, error } = this.state;
+    const {
+      loading,
+      sessions,
+      error,
+      detailedSessionVisible,
+      selectedSession,
+      selectedGame
+    } = this.state;
 
     if (error) {
       return (
@@ -75,14 +102,26 @@ export default class SessionListScreen extends PureComponent {
     }
 
     return (
-      <FlatList
-        style={ContainerStyles.full}
-        data={sessions}
-        renderItem={this.renderSession}
-        keyExtractor={extractKey}
-        refreshing={loading}
-        onRefresh={this.onRefresh}
-      />
+      <View style={ContainerStyles.full}>
+        <FlatList
+          style={ContainerStyles.full}
+          data={sessions}
+          renderItem={this.renderSession}
+          keyExtractor={extractKey}
+          refreshing={loading}
+          onRefresh={this.onRefresh}
+        />
+        <DetailedSessionScreen
+          isVisible={detailedSessionVisible}
+          session={selectedSession}
+          game={selectedGame}
+          onClose={() =>
+            this.setState({
+              detailedSessionVisible: !this.state.detailedSessionVisible
+            })
+          }
+        />
+      </View>
     );
   }
 }
