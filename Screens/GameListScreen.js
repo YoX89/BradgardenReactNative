@@ -12,7 +12,7 @@ import {
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { ButtonStyles } from "../Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
-import Button from "../Components/Button";
+import SecondaryButton from "../Components/SecondaryButton";
 import ListItem from "../Components/ListItem";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
@@ -127,7 +127,7 @@ export default class GameListScreen extends PureComponent {
 
     return (
       <SafeAreaView style={ContainerStyles.full}>
-        <Button
+        <SecondaryButton
           title="Add new game"
           onPress={() => this.toggleAddGameScreen()}
         />

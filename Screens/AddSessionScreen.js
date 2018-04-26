@@ -8,9 +8,9 @@ import {
   ScrollView
 } from "react-native";
 import { ContainerStyles } from "../Styles/ContainerStyles";
-import { ButtonStyles } from "../Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
 import Button from "../Components/Button";
+import SecondaryButton from "../Components/SecondaryButton";
 import Picker from "../Components/Picker";
 import Api from "../Networking/Api";
 import SelectionScreen from "./SelectionScreen";
@@ -54,7 +54,7 @@ export default class AddSessionScreen extends Component {
     return (
       <View style={ContainerStyles.full}>
         <ScrollView contentInsetAdjustmentBehavior={"automatic"}>
-          <Button
+          <SecondaryButton
             title="Previous sessions"
             onPress={() => this.props.navigation.navigate("SessionList")}
           />

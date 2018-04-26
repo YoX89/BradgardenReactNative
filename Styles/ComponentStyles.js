@@ -5,13 +5,20 @@ export const ComponentStyles = StyleSheet.create({
   button: {
     padding: 10,
     margin: 10,
+    borderRadius: 2,
     alignItems: "center",
     backgroundColor: Colors.button
   },
   buttonText: {
     color: Colors.primary,
-    fontWeight: "500",
+    fontWeight: "600",
     fontSize: 18
+  },
+  secondaryButton: {
+    backgroundColor: Colors.secondary
+  },
+  secondaryButtonText: {
+    color: Colors.primary
   },
   input: {
     height: 40,
@@ -48,6 +55,7 @@ export const ComponentStyles = StyleSheet.create({
   },
   pickerButton: {
     padding: 10,
+    borderRadius: 2,
     backgroundColor: Colors.secondary
   },
   pickerPlaceholderText: {
