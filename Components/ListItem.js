@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { ComponentStyles } from "../Styles/ComponentStyles";
 
 export default class ListItem extends React.PureComponent {
@@ -14,6 +14,7 @@ export default class ListItem extends React.PureComponent {
     return (
       <TouchableOpacity onPress={this.onPress}>
         <Text style={ComponentStyles.row}>{this.props.text}</Text>
+        <View style={ComponentStyles.rowDivider} />
       </TouchableOpacity>
     );
   }

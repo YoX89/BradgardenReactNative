@@ -24,7 +24,8 @@ export const ComponentStyles = StyleSheet.create({
     height: 40,
     margin: 10,
     padding: 10,
-    color: Colors.primary
+    fontSize: 14,
+    color: Colors.black
   },
   toggle: {
     height: 50,
@@ -34,7 +35,7 @@ export const ComponentStyles = StyleSheet.create({
     alignItems: "center"
   },
   toggleText: {
-    color: Colors.primary,
+    color: Colors.black,
     fontWeight: "normal",
     fontSize: 16
   },
@@ -42,13 +43,20 @@ export const ComponentStyles = StyleSheet.create({
     padding: 15,
     marginBottom: 5,
     color: Colors.black,
-    backgroundColor: Colors.secondary
+    fontSize: 16,
+    backgroundColor: Colors.background
   },
   rowSelected: {
     padding: 15,
     marginBottom: 5,
-    color: Colors.primary,
-    backgroundColor: Colors.secondary
+    color: Colors.bar,
+    fontSize: 16,
+    backgroundColor: Colors.background
+  },
+  rowDivider: {
+    height: 1,
+    marginLeft: 15,
+    backgroundColor: Colors.divider
   },
   picker: {
     margin: 10
@@ -59,18 +67,18 @@ export const ComponentStyles = StyleSheet.create({
     backgroundColor: Colors.secondary
   },
   pickerPlaceholderText: {
-    color: Colors.black,
+    color: Colors.primary,
     fontWeight: "300",
     fontSize: 16
   },
   pickerFloatingText: {
-    color: Colors.primary,
+    color: Colors.black,
     marginBottom: 4,
     fontWeight: "300",
     fontSize: 16
   },
   pickerText: {
-    color: Colors.primary,
+    color: Colors.black,
     fontSize: 16
   },
   errorWrapper: {

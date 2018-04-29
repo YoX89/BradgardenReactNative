@@ -66,19 +66,21 @@ export default class DetailedSessionScreen extends Component {
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.centerWrap}>
           <ScrollView style={ContainerStyles.modalWrap}>
-            {game && <Text style={TextStyles.memberTitle}>{game.name}</Text>}
+            {game && <Text style={TextStyles.sessionTitle}>{game.name}</Text>}
             {session && (
-              <Text style={TextStyles.memberTitle}>{session.date}</Text>
+              <Text style={TextStyles.sessionTitle}>{session.date}</Text>
             )}
-            {winners && <Text style={TextStyles.memberTitle}>Winners:</Text>}
-            {winners && <Text style={TextStyles.memberDetails}>{winners}</Text>}
-            {losers && <Text style={TextStyles.memberTitle}>Losers:</Text>}
-            {losers && <Text style={TextStyles.memberDetails}>{losers}</Text>}
+            {winners && <Text style={TextStyles.sessionTitle}>Winners:</Text>}
+            {winners && (
+              <Text style={TextStyles.sessionDetails}>{winners}</Text>
+            )}
+            {losers && <Text style={TextStyles.sessionTitle}>Losers:</Text>}
+            {losers && <Text style={TextStyles.sessionDetails}>{losers}</Text>}
             {showTraitors && (
-              <Text style={TextStyles.memberTitle}>Traitors:</Text>
+              <Text style={TextStyles.sessionTitle}>Traitors:</Text>
             )}
             {showTraitors && (
-              <Text style={TextStyles.memberDetails}>{traitors}</Text>
+              <Text style={TextStyles.sessionDetails}>{traitors}</Text>
             )}
             <Button title="Close" onPress={() => onClose()} />
             {error && <ErrorView title={error.title} message={error.message} />}

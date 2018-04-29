@@ -14,5 +14,18 @@ export const TextStyles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 10,
     paddingRight: 10
+  },
+  sessionTitle: {
+    color: Colors.black,
+    backgroundColor: "transparent",
+    fontSize: 24,
+    padding: 10
+  },
+  sessionDetails: {
+    color: Colors.black,
+    backgroundColor: "transparent",
+    fontSize: 14,
+    paddingLeft: 10,
+    paddingRight: 10
   }
 });
