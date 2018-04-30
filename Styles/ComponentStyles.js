@@ -54,9 +54,30 @@ export const ComponentStyles = StyleSheet.create({
     backgroundColor: Colors.background
   },
   rowDivider: {
-    height: 1,
+    height: StyleSheet.hairlineWidth,
     marginLeft: 15,
     backgroundColor: Colors.divider
+  },
+  gameTitle: {
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    color: Colors.black,
+    fontSize: 16,
+    backgroundColor: Colors.background
+  },
+  gameDetails: {
+    paddingBottom: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    color: Colors.secondary,
+    fontSize: 12,
+    backgroundColor: Colors.background
+  },
+  gameIcon: {
+    width: 16,
+    height: 16,
+    marginLeft: 5
   },
   picker: {
     margin: 10

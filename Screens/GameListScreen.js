@@ -13,7 +13,7 @@ import { ContainerStyles } from "../Styles/ContainerStyles";
 import { ButtonStyles } from "../Styles/ButtonStyles";
 import { Colors } from "../Styles/Colors";
 import SecondaryButton from "../Components/SecondaryButton";
-import ListItem from "../Components/ListItem";
+import GameListItem from "../Components/GameListItem";
 import Modal from "react-native-modal";
 import AddGameScreen from "./AddGameScreen";
 import Api from "../Networking/Api";
@@ -106,11 +106,7 @@ export default class GameListScreen extends PureComponent {
 
   renderGame = ({ item }) => {
     return (
-      <ListItem
-        text={item.name}
-        onPressItem={this.presentDeleteGameAlert}
-        data={item}
-      />
+      <GameListItem game={item} onPressItem={this.presentDeleteGameAlert} />
     );
   };
 
