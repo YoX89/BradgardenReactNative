@@ -12,10 +12,13 @@ export default class ListItem extends React.PureComponent {
 
   render() {
     return (
-      <TouchableOpacity onPress={this.onPress}>
-        <Text style={ComponentStyles.row}>{this.props.text}</Text>
+      <View>
+        <TouchableOpacity onPress={this.onPress}>
+          <Text style={ComponentStyles.rowTitle}>{this.props.title}</Text>
+          <Text style={ComponentStyles.rowDetails}>{this.props.details}</Text>
+        </TouchableOpacity>
         <View style={ComponentStyles.rowDivider} />
-      </TouchableOpacity>
+      </View>
     );
   }
 }
