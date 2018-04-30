@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { ButtonStyles } from "../Styles/ButtonStyles";
-import ListItem from "../Components/ListItem";
+import MemberListItem from "../Components/MemberListItem";
 import Api from "../Networking/Api";
 import MemberDetailsScreen from "./MemberDetailsScreen";
 
@@ -64,7 +64,7 @@ export default class MemberListScreen extends PureComponent {
 
   renderMember = ({ item }) => {
     return (
-      <ListItem
+      <MemberListItem
         text={item.firstName + " " + item.lastName}
         onPressItem={this.onPressMember}
         data={item}

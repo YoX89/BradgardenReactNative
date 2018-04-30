@@ -58,7 +58,7 @@ export const ComponentStyles = StyleSheet.create({
     marginLeft: 15,
     backgroundColor: Colors.divider
   },
-  gameTitle: {
+  rowTitle: {
     paddingTop: 15,
     paddingLeft: 15,
     paddingRight: 15,
@@ -66,7 +66,7 @@ export const ComponentStyles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: Colors.background
   },
-  gameDetails: {
+  rowDetails: {
     paddingBottom: 15,
     paddingLeft: 15,
     paddingRight: 15,

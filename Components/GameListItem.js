@@ -16,8 +16,8 @@ export default class GameListItem extends React.PureComponent {
       <View>
         <TouchableOpacity style={styles.outerWrapper} onPress={this.onPress}>
           <View style={styles.innerWrapper}>
-            <Text style={ComponentStyles.gameTitle}>{game.name}</Text>
-            <Text style={ComponentStyles.gameDetails}>
+            <Text style={ComponentStyles.rowTitle}>{game.name}</Text>
+            <Text style={ComponentStyles.rowDetails}>
               {this.gameDetailsText(game)}
             </Text>
           </View>
