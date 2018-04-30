@@ -46,13 +46,6 @@ export const ComponentStyles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: Colors.background
   },
-  rowSelected: {
-    padding: 15,
-    marginBottom: 5,
-    color: Colors.bar,
-    fontSize: 16,
-    backgroundColor: Colors.background
-  },
   rowDivider: {
     height: StyleSheet.hairlineWidth,
     marginLeft: 15,
