@@ -13,6 +13,7 @@ import { Colors } from "../Styles/Colors";
 import Modal from "react-native-modal";
 import Input from "../Components/Input";
 import Button from "../Components/Button";
+import SecondaryButton from "../Components/SecondaryButton";
 import Toggle from "../Components/Toggle";
 import ErrorView from "../Components/ErrorView";
 import Api from "../Networking/Api";
@@ -56,7 +57,7 @@ export default class AddGameScreen extends Component {
               onValueChange={value => this.setState({ isCoop: value })}
             />
             <Button title="Add game" onPress={() => this.addGame()} />
-            <Button title="Close" onPress={() => onClose()} />
+            <SecondaryButton title="Close" onPress={() => onClose()} />
             {loading && <ActivityIndicator size="large" />}
           </ScrollView>
         </SafeAreaView>
