@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background
   },
   statusBar: {
-    height: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
+    height: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
+    backgroundColor: Colors.bar
   }
 });
