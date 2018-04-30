@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { TextStyles } from "../Styles/TextStyles";
-import Button from "../Components/Button";
+import SecondaryButton from "../Components/SecondaryButton";
 import ProfileHeader from "../Components/ProfileHeader";
 import Modal from "react-native-modal";
 
@@ -30,7 +30,7 @@ export default class MemberDetailsScreen extends Component {
                 gamesPlayed={this.gamesPlayedText()}
                 winRate={this.winRatioText()}
               />
-              <Button title="Close" onPress={onPressClose} />
+              <SecondaryButton title="Close" onPress={onPressClose} />
             </ScrollView>
           )}
         </SafeAreaView>

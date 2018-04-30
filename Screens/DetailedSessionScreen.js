@@ -8,7 +8,7 @@ import {
   ScrollView
 } from "react-native";
 import Modal from "react-native-modal";
-import Button from "../Components/Button";
+import SecondaryButton from "../Components/SecondaryButton";
 import { ContainerStyles } from "../Styles/ContainerStyles";
 import { TextStyles } from "../Styles/TextStyles";
 import Api from "../Networking/Api";
@@ -82,7 +82,7 @@ export default class DetailedSessionScreen extends Component {
             {showTraitors && (
               <Text style={TextStyles.sessionDetails}>{traitors}</Text>
             )}
-            <Button title="Close" onPress={() => onClose()} />
+            <SecondaryButton title="Close" onPress={() => onClose()} />
             {error && <ErrorView title={error.title} message={error.message} />}
             {loading && <ActivityIndicator size="large" />}
           </ScrollView>
