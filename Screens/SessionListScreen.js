@@ -75,10 +75,11 @@ export default class SessionListScreen extends PureComponent {
     const { games } = this.state;
     const game = this.findGameForId(item.gameID);
     const gameName = game != null && game.name != null ? game.name : "";
+    const date = new Date(item.date);
     return (
       <ListItem
         title={gameName}
-        details={item.date}
+        details={date.toDateString()}
         data={item}
         onPressItem={this.onPressSession}
       />
