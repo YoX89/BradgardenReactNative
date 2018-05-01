@@ -21,6 +21,13 @@ export const TextStyles = StyleSheet.create({
     fontSize: 24,
     padding: 10
   },
+  sessionDescription: {
+    color: Colors.secondary,
+    backgroundColor: "transparent",
+    fontSize: 18,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
   sessionDetails: {
     color: Colors.black,
     backgroundColor: "transparent",

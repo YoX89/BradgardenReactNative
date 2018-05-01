@@ -62,13 +62,19 @@ export default class DetailedSessionScreen extends Component {
     }
     const showTraitors = traitors && traitors.length > 0;
 
+    var dateString = null;
+    if (session != null && session.date != null) {
+      const date = new Date(session.date);
+      dateString = date.toDateString() + " " + date.toLocaleTimeString("sv-SE");
+    }
+
     return (
       <Modal isVisible={isVisible}>
         <SafeAreaView style={ContainerStyles.centerWrap}>
           <ScrollView style={ContainerStyles.modalWrap}>
             {game && <Text style={TextStyles.sessionTitle}>{game.name}</Text>}
-            {session && (
-              <Text style={TextStyles.sessionTitle}>{session.date}</Text>
+            {dateString && (
+              <Text style={TextStyles.sessionDescription}>{dateString}</Text>
             )}
             {winners && <Text style={TextStyles.sessionTitle}>Winners:</Text>}
             {winners && (
